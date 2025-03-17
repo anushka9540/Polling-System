@@ -43,9 +43,6 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
 }
-button:hover {
-  border-color: #646cff;
-}
 
 .card {
   padding: 2em;
