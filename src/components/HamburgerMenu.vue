@@ -4,43 +4,43 @@
   </transition>
 
   <transition name="slide-right">
-    <aside v-if="isSidebarOpen" class="fixed top-0 right-0 z-50 h-full bg-white shadow-lg w-full md:w-[500px] p-5 md:p-9">
+    <aside v-if="isSidebarOpen" class="fixed top-0 right-0 z-50 h-full bg-white shadow-lg w-full md:w-[470px] p-5 md:p-5">
       <div class="flex items-center justify-between p-4 -mt-8 md:p-6">
         <img :src="logo" alt="Zoosk Logo" class="w-32 h-14 md:w-36 md:h-16" />
 
         <button @click="toggleSidebar" class="text-gray-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-gray-400" viewBox="0 0 24 24" stroke="currentColor" fill="none">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      <nav class="flex flex-col p-3 space-y-3 text-base text-left md:p-6 md:space-y-4 md:text-lg">
+      <nav class="flex flex-col p-3 lg:space-y-3 text-base text-left md:p-4 md:space-y-4 md:text-md lg:text-[16px] lg:font-thin">
         <a href="#" class="block text-gray-900 hover:text-gray-600">About Zoosk</a>
         <a href="#" class="block text-gray-900 hover:text-gray-600">Help Center</a>
         <a href="#" class="block text-gray-900 hover:text-gray-600">Dating & Relationship</a>
         <a href="#" class="block text-gray-900 hover:text-gray-600">Press</a>
       </nav>
 
-      <nav class="flex flex-col p-4 space-y-3 text-base text-left md:p-6 md:space-y-4 md:text-lg">
+      <nav class="flex flex-col p-4 lg:space-y-3 text-base text-left md:p-4 md:space-y-4 md:text-md lg:text-[16px] lg:font-thin">
         <a href="#" class="block text-gray-600 hover:text-gray-400">Privacy</a>
         <a href="#" class="block text-gray-600 hover:text-gray-400">Safety</a>
         <a href="#" class="block text-gray-600 hover:text-gray-400">Terms of Use</a>
       </nav>
 
       <div class="flex flex-col justify-start mt-8 mb-10 md:mt-8">
-        <div class="flex space-x-4">
-          <img :src="appStore" alt="App Store" class="w-28 md:w-32"/>
-          <img :src="googlePlay" alt="Google Play" class="w-28 md:w-32"/>
+        <div class="flex space-x-7">
+          <img :src="appStore" alt="App Store" class="w-20 md:w-28"/>
+          <img :src="googlePlay" alt="Google Play" class="w-20 md:w-28"/>
         </div>
-        <div class="flex mt-8 space-x-4">
+        <div class="flex mt-8 space-x-6">
           <a href="https://www.facebook.com/"><img :src="facebookIcon" class="w-6 md:w-8" alt="Facebook"/></a>
           <a href="https://x.com/"><img :src="xIcon" class="w-6 md:w-8" alt="X"/></a>
           <a href="https://www.instagram.com/"><img :src="instaIcon" class="w-6 md:w-8" alt="Instagram"/></a>
         </div>
       </div>
   
-      <div class="flex items-center justify-between mt-6 text-xs text-center text-gray-800 md:mt-8 md:text-sm">
+      <div class="flex items-center justify-between text-xs text-center text-gray-800 lg:mt-28 md:mt-8 md:text-sm">
         <p> © 2025 Zoosk</p>
         <div class="relative">
           <button @click="toggleDropdown" class="flex items-center justify-between w-40 p-2 text-gray-700 bg-gray-200 border border-gray-400 rounded-lg">
@@ -102,15 +102,14 @@ defineExpose({ toggleSidebar });
 </script>
 
 <style scoped>
-/* Fade transition */
-.fade-enter-active, .fade-leave-active {
+
+/* .fade-enter-active, .fade-leave-active {
   transition: opacity 0.3s ease;
 }
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
 
-/* Slide-in from the right */
 .slide-right-enter-active, .slide-right-leave-active {
   transition: transform 0.3s ease;
 }
@@ -119,5 +118,5 @@ defineExpose({ toggleSidebar });
 }
 .slide-right-leave-to {
   transform: translateX(100%);
-}
+} */
 </style>

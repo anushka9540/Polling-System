@@ -14,14 +14,15 @@ export function useAuth() {
   const showPassword = ref(false);
 
   const validateEmail = () => {
-    if (!form.value.email) {
-      errors.value.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email)) {
-      errors.value.email = 'Enter a valid email';
-    } else {
-      errors.value.email = '';
-    }
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    errors.value.email = !form.value.email.trim()
+      ? 'Email is required.'
+      : emailRegex.test(form.value.email)
+        ? ''
+        : 'Please enter a valid email.';
   };
+  
 
   const validatePassword = () => {
     if (!form.value.password) {
@@ -78,8 +79,8 @@ export function useAuth() {
       form.value.email = '';
       form.value.password = '';
     } catch (error) {
-      errors.value.email = 'Invalid email or password';
-      errors.value.password = '';
+      alert('Invalid email or password');
+      
     }
   };
 
@@ -95,5 +96,3 @@ export function useAuth() {
     togglePassword,
   };
 }
-
-
