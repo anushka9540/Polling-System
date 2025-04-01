@@ -4,10 +4,12 @@
         :style="{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
         
         <div class="absolute w-full max-w-md p-6 bg-white border-gray-400 shadow-2xl rounded-3xl sm:right-10 sm:top-20">
-          <div class="absolute top-0 left-0 w-full h-4 bg-gradient-to-r from-yellow-400 via-blue-600 via-blue-800 via-cyan-300 to-blue-400 rounded-t-3xl"></div>
-          
+          <div class="absolute top-0 left-0 w-full">
+        <img src="https://static3.zoosk.com/browser-86c22481/touch/en-GB/form-border.548a764ea427d86a828a.svg"
+          alt="Form Border" class="w-full h-auto" />
+      </div>
           <div class="flex mb-4 space-x-2">
-            <button class="flex items-center justify-center w-full py-2 font-bold text-gray-700 border border-gray-900 rounded-lg hover:bg-gray-100">
+            <button class="flex items-center justify-center w-full py-1 font-bold text-gray-700 border border-gray-900 rounded-lg hover:bg-gray-100">
               <img :src="facebookicon" alt="Facebook" class="w-5 h-5 mr-2"/> Sign up
             </button>
             <button class="flex items-center justify-center w-full py-2 font-bold text-gray-700 border border-gray-900 rounded-lg hover:bg-gray-100">
@@ -18,8 +20,8 @@
           <div class="mb-4">
             <label class="block text-gray-700">I'm a:</label>
             <div class="flex mt-1 space-x-2">
-              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-2 border-gray-400 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Woman</button>
-              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-2 border-gray-400 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Man</button>
+              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-gray-400 border-1 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Woman</button>
+              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-gray-400 border-1 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Man</button>
             </div>
           </div>
           
@@ -78,7 +80,6 @@
     
     <script setup>
     import {ref} from 'vue'
-    import { useAuth } from '../composables/useAuth.js';
     import zoosklogo from '../assets/zoosk-logo.svg';
     import backgroundImage from '../assets/background-img.webp';
     import HamburgerMenu from './HamburgerMenu.vue';
