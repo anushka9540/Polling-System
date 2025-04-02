@@ -89,7 +89,6 @@
     import hCaptcha from '../assets/hcapctha.jpg'
     import Header from './Header.vue';
     
-    const { form, errors, handleSignup } = useAuth();
   
     const sidebar = ref(null);
   

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useValidation } from '../composables/useValidation';
 
 export const useAuthStore = defineStore('auth', () => {
   const form = ref({
@@ -12,49 +13,37 @@ export const useAuthStore = defineStore('auth', () => {
     password: ''
   });
 
-
   const formSubmitted = ref(false);
 
-  const validateEmail = () => {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!form.value.email.trim()) {
-      errors.value.email = 'Email is required.';
-    } else if (!emailRegex.test(form.value.email)) {
-      errors.value.email = 'Please enter a valid email.';
-    } else {
-      errors.value.email = '';
-    }
-  };
+  const { validateEmail, validatePassword } = useValidation();
 
-  const validatePassword = () => {
-    if (!form.value.password.trim()) {
-      errors.value.password = 'Password is required';
-    } else {
-      errors.value.password = '';
-    }
-  };
-
-  const handleChange = (field) => {
-    if (field === 'email') {
-      validateEmail();
-    } else if (field === 'password') {
-      validatePassword();
-    }
-  };
-
-  const validateForm = () => {
-    validateEmail();
-    validatePassword();
-    return !errors.value.email && !errors.value.password;
+  const showToast = (message, bgColor) => {
+    Toastify({
+      text: message,
+      duration: 3000,
+      gravity: 'top',
+      position: 'center',
+      backgroundColor: bgColor,
+      style: {
+        borderRadius: '8px',
+        padding: '10px',
+        fontSize: '14px',
+        textAlign: 'center'
+      },
+      stopOnFocus: true
+    }).showToast();
   };
 
   const handleLogin = async () => {
     formSubmitted.value = true;
 
-    validateEmail();
-    validatePassword();
+    errors.value.email = validateEmail(form.value.email);
+    errors.value.password = validatePassword(form.value.password);
 
-    if (!validateForm()) return false;
+    if (errors.value.email || errors.value.password) {
+      showToast('Please enter valid credentials!', '#FF5733');
+      return false;
+    }
 
     try {
       const response = await fetch('http://192.168.68.107:3000/user/login', {
@@ -71,10 +60,13 @@ export const useAuthStore = defineStore('auth', () => {
       const data = await response.json();
 
       if (!response.ok) {
+        if (data.message === 'User not found') {
+          throw new Error('User data not found');
+        }
         throw new Error(data.message || 'Login failed');
       }
 
-      alert('Login successful!');
+      showToast('Login successful!', '#4CAF50');
 
       form.value.email = '';
       form.value.password = '';
@@ -84,7 +76,19 @@ export const useAuthStore = defineStore('auth', () => {
 
       return true;
     } catch (error) {
-      alert('Invalid email or password');
+      if (error.message === 'Failed to fetch') {
+        showToast(
+          'Failed to fetch data. Please check your internet connection.',
+          '#FF5733'
+        );
+      } else if (error.message === 'User data not found') {
+        showToast(
+          'User data not found. Please check your credentials.',
+          '#FF5733'
+        );
+      } else {
+        showToast(error.message, '#FF5733');
+      }
       return false;
     }
   };
@@ -93,6 +97,6 @@ export const useAuthStore = defineStore('auth', () => {
     form,
     errors,
     handleLogin,
-    handleChange,
+    formSubmitted
   };
 });
