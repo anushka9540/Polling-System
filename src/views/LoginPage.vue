@@ -168,13 +168,13 @@
 <script setup>
 import { useAuthStore } from '../stores/useAuthStore.js';
 import { useValidation } from '../composables/useValidation.js';
-import HamburgerMenu from './HamburgerMenu.vue';
-import Footer from './Footer.vue';
-import Header from './Header.vue';
-import backgroundImage from '../assets/background-img.webp';
-import hCaptchaImg from '../assets/hcapctha.jpg';
-import facebookicon from '../assets/fb-icon.svg';
-import googleicon from '../assets/google-icon.svg';
+import HamburgerMenu from '../components/HamburgerMenu.vue';
+import Footer from '../components/Footer.vue';
+import Header from '../components/Header.vue';
+import backgroundImage from '../assets/background/background-img.webp';
+import hCaptchaImg from '../assets/captcha/hcapctha.jpg';
+import facebookicon from '../assets/icons/fb-icon.svg';
+import googleicon from '../assets/icons/google-icon.svg';
 import { ref } from 'vue';
 
 const isHuman = ref(false);

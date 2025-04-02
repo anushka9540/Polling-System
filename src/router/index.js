@@ -1,17 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import LoginPage from '../components/LoginPage.vue';
-import SignupPage from '../components/SignupPage.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Login',
-    component: LoginPage
+    component: () => import('../views/LoginPage.vue') // Lazy-loaded
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: SignupPage
+    component: () => import('../views/SignupPage.vue') // Lazy-loaded
   }
 ];
 

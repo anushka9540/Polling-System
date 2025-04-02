@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from 'vue';
 
-import appStore from '../assets/app-store.svg';
-import googlePlay from '../assets/google-play.svg';
-import facebookIcon from '../assets/footer-fbIcon.svg';
-import twitterIcon from '../assets/footer-twitterIcon.svg';
-import instagramIcon from '../assets/footer-instaIcon.svg';
+import appStore from '../assets/logo image/app-store.svg';
+import googlePlay from '../assets/logo image/google-play.svg';
+import facebookIcon from '../assets/icons/footer-fbIcon.svg';
+import twitterIcon from '../assets/icons/footer-twitterIcon.svg';
+import instagramIcon from '../assets/icons/footer-instaIcon.svg';
 
 const footerColumns = ref([
   {

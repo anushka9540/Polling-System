@@ -96,7 +96,7 @@
           >
             <button
               @click="toggleDropdown"
-              class="flex items-center justify-between w-40 p-2 text-gray-600 bg-gray-200 border border-gray-400 rounded-lg text-[16px] font-semibold"
+              class="flex items-center justify-between md:w-44 p-3 text-gray-600 bg-gray-100 border border-gray-400 rounded-lg text-[16px] font-semibold w-52"
             >
               {{ selectedLanguage }}
               <span class="ml-2"
@@ -128,11 +128,11 @@
 
 <script setup>
 import { ref, defineExpose } from 'vue';
-import appStore from '../assets/app-store.svg';
-import googlePlay from '../assets/google-play.svg';
-import facebookIcon from '../assets/facebookicon.svg';
-import xIcon from '../assets/xicon.svg';
-import instaIcon from '../assets/instaicon.svg';
+import appStore from '../assets/logo image/app-store.svg';
+import googlePlay from '../assets/logo image/google-play.svg';
+import facebookIcon from '../assets/icons/facebookicon.svg';
+import xIcon from '../assets/icons/xicon.svg';
+import instaIcon from '../assets/icons/instaicon.svg';
 
 const isSidebarOpen = ref(false);
 const isDropdownOpen = ref(false);

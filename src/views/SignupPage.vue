@@ -80,14 +80,13 @@
     
     <script setup>
     import {ref} from 'vue'
-    import zoosklogo from '../assets/zoosk-logo.svg';
-    import backgroundImage from '../assets/background-img.webp';
-    import HamburgerMenu from './HamburgerMenu.vue';
-    import facebookicon from '../assets/fb-icon.svg';
-    import googleicon from '../assets/google-icon.svg';
-    import Footer from './Footer.vue';
-    import hCaptcha from '../assets/hcapctha.jpg'
-    import Header from './Header.vue';
+    import backgroundImage from '../assets/background/background-img.webp';
+    import HamburgerMenu from '../components/HamburgerMenu.vue';
+    import facebookicon from '../assets/icons/fb-icon.svg';
+    import googleicon from '../assets/icons/google-icon.svg';
+    import Footer from '../components/Footer.vue';
+    import hCaptcha from '../assets/captcha/hcapctha.jpg'
+    import Header from '../components/Header.vue';
     
   
     const sidebar = ref(null);

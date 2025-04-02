@@ -2,6 +2,15 @@ import { ref } from 'vue';
 
 export function useValidation() {
   const showPassword = ref(false);
+  const form = ref({
+    email: '',
+    password: ''
+  });
+  const errors = ref({
+    email: '',
+    password: ''
+  });
+  const formSubmitted = ref(false);
 
   const togglePassword = () => {
     showPassword.value = !showPassword.value;
@@ -24,10 +33,22 @@ export function useValidation() {
     return '';
   };
 
+  const resetForm = () => {
+    form.value.email = '';
+    form.value.password = '';
+    errors.value.email = '';
+    errors.value.password = '';
+    formSubmitted.value = false;
+  };
+
   return {
     showPassword,
     togglePassword,
     validateEmail,
-    validatePassword
+    validatePassword,
+    form,
+    errors,
+    formSubmitted,
+    resetForm
   };
 }

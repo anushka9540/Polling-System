@@ -43,7 +43,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import zoosklogo from '../assets/zoosk-logo.svg';
+import zoosklogo from '../assets/logo image/zoosk-logo.svg';
 import HamburgerMenu from './HamburgerMenu.vue';
 
 const route = useRoute();

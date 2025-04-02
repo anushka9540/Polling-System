@@ -1,38 +1,17 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
 import { useValidation } from '../composables/useValidation';
+import { useToast } from '../composables/useToast';
 
 export const useAuthStore = defineStore('auth', () => {
-  const form = ref({
-    email: '',
-    password: ''
-  });
-
-  const errors = ref({
-    email: '',
-    password: ''
-  });
-
-  const formSubmitted = ref(false);
-
-  const { validateEmail, validatePassword } = useValidation();
-
-  const showToast = (message, bgColor) => {
-    Toastify({
-      text: message,
-      duration: 3000,
-      gravity: 'top',
-      position: 'center',
-      backgroundColor: bgColor,
-      style: {
-        borderRadius: '8px',
-        padding: '10px',
-        fontSize: '14px',
-        textAlign: 'center'
-      },
-      stopOnFocus: true
-    }).showToast();
-  };
+  const {
+    form,
+    errors,
+    validateEmail,
+    validatePassword,
+    resetForm,
+    formSubmitted
+  } = useValidation();
+  const { showToast } = useToast();
 
   const handleLogin = async () => {
     formSubmitted.value = true;
@@ -41,7 +20,6 @@ export const useAuthStore = defineStore('auth', () => {
     errors.value.password = validatePassword(form.value.password);
 
     if (errors.value.email || errors.value.password) {
-      showToast('Please enter valid credentials!', '#FF5733');
       return false;
     }
 
@@ -57,39 +35,23 @@ export const useAuthStore = defineStore('auth', () => {
         })
       });
 
-      const data = await response.json();
+      let data;
+      try {
+        data = await response.json(); // Ensure response parsing is safe
+      } catch {
+        throw new Error('Invalid server response');
+      }
 
       if (!response.ok) {
-        if (data.message === 'User not found') {
-          throw new Error('User data not found');
-        }
         throw new Error(data.message || 'Login failed');
       }
 
+      // ✅ Show toast for successful login
       showToast('Login successful!', '#4CAF50');
-
-      form.value.email = '';
-      form.value.password = '';
-      errors.value.email = '';
-      errors.value.password = '';
-      formSubmitted.value = false;
-
-      return true;
+      resetForm();
     } catch (error) {
-      if (error.message === 'Failed to fetch') {
-        showToast(
-          'Failed to fetch data. Please check your internet connection.',
-          '#FF5733'
-        );
-      } else if (error.message === 'User data not found') {
-        showToast(
-          'User data not found. Please check your credentials.',
-          '#FF5733'
-        );
-      } else {
-        showToast(error.message, '#FF5733');
-      }
-      return false;
+      // ✅ Show toast with API error message
+      showToast(error.message, '#FF5733');
     }
   };
 
