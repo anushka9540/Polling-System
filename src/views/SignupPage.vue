@@ -1,15 +1,15 @@
 <template>
     <Header></Header>
-      <div class="relative flex flex-col items-center justify-center min-h-screen px-4 bg-gray-100 -mt-7 sm:px-0"
+      <div class="relative flex flex-col items-center justify-center min-h-screen px-4 bg-gray-100 sm:px-0"
         :style="{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
         
-        <div class="absolute w-full max-w-md p-6 mr-20 bg-white border-gray-400 shadow-2xl -mt-9 rounded-3xl sm:right-10 sm:top-20">
+        <div class="relative w-full max-w-sm p-6 -mt-4 bg-white border-gray-400 shadow-2xl rounded-3xl sm:absolute sm:right-10 sm:top-10 sm:mt-0">
           <div class="absolute top-0 left-0 w-full">
            <img src="https://static3.zoosk.com/browser-86c22481/touch/en-GB/form-border.548a764ea427d86a828a.svg"
            alt="Form Border" class="w-full h-auto" />
           </div>
           <div class="flex mb-4 space-x-2">
-            <button class="flex items-center justify-center w-full py-1 font-bold text-gray-700 border border-gray-900 rounded-lg hover:bg-gray-100">
+            <button class="flex items-center justify-center w-full py-2 font-bold text-gray-700 border border-gray-900 rounded-lg hover:bg-gray-100">
               <img :src="facebookicon" alt="Facebook" class="w-5 h-5 mr-2"/> Sign up
             </button>
             <button class="flex items-center justify-center w-full py-2 font-bold text-gray-700 border border-gray-900 rounded-lg hover:bg-gray-100">
@@ -110,9 +110,3 @@
     
     <style scoped>
     </style>
-  
-
-
-
-
-  

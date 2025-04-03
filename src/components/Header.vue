@@ -9,7 +9,7 @@
       <router-link
         v-if="isSignupPage"
         to="/"
-        class="text-base sm:text-lg lg:text-xl text-[#374756] no-underline"
+        class="text-base sm:text-lg lg:text-xl text-[#374756] no-underline hover:text-gray-400  "
       >
         Log in
       </router-link>

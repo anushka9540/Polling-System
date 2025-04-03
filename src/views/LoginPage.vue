@@ -21,7 +21,7 @@
           />
         </div>
         <div class="relative z-10 pl-10 pr-10 bg-white shadow-lg rounded-b-2xl">
-          <form @submit.prevent="loginCaptcha">
+          <form @submit.prevent="onSubmitForm">
             <div class="mb-4">
               <label
                 for="email"
@@ -168,7 +168,7 @@
 
 <script setup>
 import { useAuthStore } from '../stores/useAuthStore.js';
-import { useLoginValidation } from '../composables/useLoginValidation.js';
+import { useLogin } from '../composables/useLoginValidation.js';
 import { useToast } from '../composables/useToast.js';
 import HamburgerMenu from '../components/HamburgerMenu.vue';
 import Footer from '../components/Footer.vue';
@@ -181,11 +181,11 @@ import { ref } from 'vue';
 
 const authStore = useAuthStore();
 const { showToast } = useToast();
-const { form, errors, validateField, validateLoginPage, showPassword, togglePassword, resetForm } = useLoginValidation();
+const { form, errors, validateField, validateLoginPage, showPassword, togglePassword, resetForm } = useLogin();
 
 const loading = ref(false);
 
-const loginCaptcha = async () => {
+const onSubmitForm = async () => {
   if (!validateLoginPage()) {
     showToast('Fill the credentials', 'error');
     return;

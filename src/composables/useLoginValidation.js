@@ -1,15 +1,13 @@
 import { reactive, ref } from 'vue';
+import { useValidation } from './useValidation';
 
-export function useLoginValidation() {
+export function useLogin() {
+  const { errors, validateEmail, validatePassword } = useValidation();
+
   const form = reactive({
     email: '',
     password: '',
     captchaVerified: false
-  });
-
-  const errors = reactive({
-    email: '',
-    password: ''
   });
 
   const showPassword = ref(false);
@@ -19,26 +17,13 @@ export function useLoginValidation() {
   };
 
   const validateField = (field) => {
-    if (field === 'email') {
-      errors.email = form.email.trim()
-        ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
-          ? ''
-          : 'Enter a valid email'
-        : 'Email is required';
-    }
-
-    if (field === 'password') {
-      errors.password = form.password.trim()
-        ? form.password.length >= 4
-          ? ''
-          : 'Password must be at least 4 characters'
-        : 'Password is required';
-    }
+    if (field === 'email') validateEmail(form.email);
+    if (field === 'password') validatePassword(form.password);
   };
 
   const validateLoginPage = () => {
-    validateField('email');
-    validateField('password');
+    validateEmail(form.email);
+    validatePassword(form.password);
     return !errors.email && !errors.password;
   };
 
