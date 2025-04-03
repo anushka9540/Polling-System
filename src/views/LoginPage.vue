@@ -21,7 +21,7 @@
           />
         </div>
         <div class="relative z-10 pl-10 pr-10 bg-white shadow-lg rounded-b-2xl">
-          <form @submit.prevent="handleLoginWithReset">
+          <form @submit.prevent="loginAndResetCaptcha">
             <div class="mb-4">
               <label
                 for="email"
@@ -32,7 +32,7 @@
               <input
                 type="email"
                 v-model="form.email"
-                @input="handleChange('email')"
+                @input="validateField('email')"
                 class="w-full p-2 px-6 mt-2 font-semibold bg-gray-200 border-none rounded-lg outline-none text-[#213547] focus:ring-1 focus:ring-cyan-500"
                 placeholder="name@email.com"
               />
@@ -50,7 +50,7 @@
               <input
                 :type="showPassword ? 'text' : 'password'"
                 v-model="form.password"
-                @input="handleChange('password')"
+                @input="validateField('password')"
                 class="w-full p-2 px-6 mt-2 text-[#213547] bg-gray-200 border-none rounded-lg outline-none focus:ring-1 focus:ring-cyan-500 font-semibold"
                 placeholder="Password"
               />
@@ -78,12 +78,16 @@
               class="flex items-center w-[260px] p-2 -mb-2 bg-gray-50 border border-gray-300 rounded-[5px]"
             >
               <label class="relative flex items-center cursor-pointer">
-                <input v-model="isHuman" type="checkbox" class="hidden peer" />
+                <input
+                  v-model="captchaVerified"
+                  type="checkbox"
+                  class="hidden peer"
+                />
                 <div
                   class="mr-2 w-[28px] h-[28px] border border-gray-400 rounded-[4px] bg-white transition-all duration-300 ease-in-out transform cursor-pointer flex items-center justify-center peer-checked:bg-[#f9fbfc] peer-checked:border-[#215b6e] peer-checked:border-2 peer-checked:shadow-lg"
                 >
                   <svg
-                    v-if="isHuman"
+                    v-if="captchaVerified"
                     class="w-6 h-6 text-green-600"
                     fill="none"
                     stroke="currentColor"
@@ -108,11 +112,11 @@
             </div>
 
             <button
-              :disabled="!isHuman || loading"
+              :disabled="!captchaVerified || loading"
               class="w-full py-[7px] rounded-[250px] shadow-md text-[20px] mt-3"
               :class="{
-                'bg-[#19b7ea] text-white': isHuman && !loading,
-                'bg-[#dadada] text-[#999]': !isHuman || loading,
+                'bg-[#19b7ea] text-white': captchaVerified && !loading,
+                'bg-[#dadada] text-[#999]': !captchaVerified || loading,
                 'transform scale-95': loading,
                 'cursor-wait': loading
               }"
@@ -132,10 +136,7 @@
             <button
               class="w-full h-[40px] bg-white border border-gray-400 text-[#1b3e85] rounded-[8px] flex items-center justify-center hover:bg-gray-100 font-medium text-[15px]"
             >
-              <img
-                :src="facebookicon"
-                class="mr-5 w-[30px] h-[25px] text-[#1b3e85]"
-              />
+              <img :src="facebookicon" class="mr-5 w-[30px] h-[25px]" />
               Log in with Facebook*
             </button>
 
@@ -153,7 +154,7 @@
               agree to our
               <a href="#" class="underline">Terms</a> (including the mandatory
               arbitration of disputes) and consent to our
-              <a href="#" class="underline">Privacy Policy</a>."
+              <a href="#" class="underline">Privacy Policy</a>.
             </p>
           </div>
         </div>
@@ -177,29 +178,25 @@ import facebookicon from '../assets/icons/fb-icon.svg';
 import googleicon from '../assets/icons/google-icon.svg';
 import { ref } from 'vue';
 
-const isHuman = ref(false);
+const captchaVerified = ref(false);
 
 const authStore = useAuthStore();
 const { form, errors, handleLogin } = authStore;
 const { showPassword, togglePassword, validateEmail, validatePassword } =
   useValidation();
 
-const handleChange = (field) => {
-  if (field === 'email') {
-    errors.email = validateEmail(form.email);
-  } else if (field === 'password') {
-    errors.password = validatePassword(form.password);
-  }
+const validateField = (field) => {
+  errors[field] =
+    field === 'email'
+      ? validateEmail(form.email)
+      : validatePassword(form.password);
 };
 
 const loading = ref(false);
-const handleLoginWithReset = async () => {
+const loginAndResetCaptcha = async () => {
   loading.value = true;
   const isLoginSuccessful = await handleLogin();
-
-  if (isLoginSuccessful) {
-    isHuman.value = false;
-  }
+  if (isLoginSuccessful) captchaVerified.value = false;
   loading.value = false;
 };
 </script>

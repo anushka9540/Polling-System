@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
+import axios from 'axios';
 import { useValidation } from '../composables/useValidation';
 import { useToast } from '../composables/useToast';
+import { BASE_URL } from '../constant';
 
 export const useAuthStore = defineStore('auth', () => {
   const {
@@ -24,34 +26,19 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     try {
-      const response = await fetch('http://192.168.68.107:3000/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: form.value.email,
-          password: form.value.password
-        })
+      const response = await axios.post(`${BASE_URL}/user/login`, {
+        email: form.value.email,
+        password: form.value.password
       });
 
-      let data;
-      try {
-        data = await response.json(); // Ensure response parsing is safe
-      } catch {
-        throw new Error('Invalid server response');
-      }
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
-      // ✅ Show toast for successful login
-      showToast('Login successful!', '#4CAF50');
+      showToast(response.data.message || 'Login successful!', '#4CAF50');
       resetForm();
+      return true;
     } catch (error) {
-      // ✅ Show toast with API error message
-      showToast(error.message, '#FF5733');
+      const errorMessage =
+        error.response?.data?.message || 'An error occurred. Please try again.';
+      showToast(errorMessage, '#FF5733');
+      return false;
     }
   };
 

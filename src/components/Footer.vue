@@ -49,13 +49,11 @@ const legalLinks = ref([
   <div
     class="w-full bg-white px-4 sm:px-10 lg:px-[70px] sm:mt-[90px] md:mt-[2px]"
   >
-    <!-- App Store and Google Play -->
     <div class="flex flex-wrap justify-center gap-6 pt-10 text-center">
       <img :src="appStore" class="h-[45px] w-[120px]" alt="App Store" />
       <img :src="googlePlay" class="h-[45px] w-[120px]" alt="Play Store" />
     </div>
 
-    <!-- Download Count -->
     <p class="mt-8 mb-8 text-2xl text-center text-gray-600 sm:text-3xl">
       Over <span class="font-bold text-gray-700">30 million</span> downloads.
     </p>
