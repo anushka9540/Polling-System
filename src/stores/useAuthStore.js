@@ -1,37 +1,31 @@
 import { defineStore } from 'pinia';
+import { ref } from 'vue';
 import axios from 'axios';
-import { useValidation } from '../composables/useValidation';
-import { useToast } from '../composables/useToast';
-import { BASE_URL } from '../constant';
+import { useRouter } from 'vue-router';
+import { BASE_URL } from '../constants/constant.js';
 
 export const useAuthStore = defineStore('auth', () => {
-  const validation = useValidation(); 
-  const { showToast } = useToast();
+  const router = useRouter();
+  const user = ref(JSON.parse(localStorage.getItem('user')) || null);
+  const token = ref(localStorage.getItem('token') || null);
 
-  const handleLogin = async () => {
-    if (!validation.validateForm()) { // validation logic is fully inside the composable
-      return false;
-    }
-
+  const handleLogin = async (payload) => {
     try {
-      const response = await axios.post(`${BASE_URL}/user/login`, {
-        email: validation.form.value.email,
-        password: validation.form.value.password
-      });
+      const response = await axios.post(`${BASE_URL}/user/login`, payload);
 
-      showToast(response.data.message || 'Login successful!', '#4CAF50');
-      validation.resetForm();
-      return true;
+      user.value = response.data.user;
+      token.value = response.data.token;
+
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('token', response.data.token);
+
+      router.push('/polls');
+
+      return { success: true, message: response.data.message || 'Login successful!' };
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || 'An error occurred. Please try again.';
-      showToast(errorMessage, '#FF5733');
-      return false;
+      return { success: false, message: error.response?.data?.message || 'An error occurred. Please try again.' };
     }
   };
 
-  return {
-    ...validation, 
-    handleLogin
-  };
+  return { user, token, handleLogin };
 });

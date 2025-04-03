@@ -1,5 +1,7 @@
 export function useToast() {
-  const showToast = (message, bgColor) => {
+  const showToast = (message, type) => {
+    const bgColor = type === 'success' ? '#4CAF50' : '#FF5733';
+
     Toastify({
       text: message,
       duration: 3000,

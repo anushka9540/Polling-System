@@ -21,7 +21,7 @@
           />
         </div>
         <div class="relative z-10 pl-10 pr-10 bg-white shadow-lg rounded-b-2xl">
-          <form @submit.prevent="loginAndResetCaptcha">
+          <form @submit.prevent="loginCaptcha">
             <div class="mb-4">
               <label
                 for="email"
@@ -79,7 +79,7 @@
             >
               <label class="relative flex items-center cursor-pointer">
                 <input
-                  v-model="captchaVerified"
+                  v-model="form.captchaVerified"
                   type="checkbox"
                   class="hidden peer"
                 />
@@ -87,7 +87,7 @@
                   class="mr-2 w-[28px] h-[28px] border border-gray-400 rounded-[4px] bg-white transition-all duration-300 ease-in-out transform cursor-pointer flex items-center justify-center peer-checked:bg-[#f9fbfc] peer-checked:border-[#215b6e] peer-checked:border-2 peer-checked:shadow-lg"
                 >
                   <svg
-                    v-if="captchaVerified"
+                    v-if="form.captchaVerified"
                     class="w-6 h-6 text-green-600"
                     fill="none"
                     stroke="currentColor"
@@ -112,11 +112,11 @@
             </div>
 
             <button
-              :disabled="!captchaVerified || loading"
+              :disabled="!form.captchaVerified || loading"
               class="w-full py-[7px] rounded-[250px] shadow-md text-[20px] mt-3"
               :class="{
-                'bg-[#19b7ea] text-white': captchaVerified && !loading,
-                'bg-[#dadada] text-[#999]': !captchaVerified || loading,
+                'bg-[#19b7ea] text-white': form.captchaVerified && !loading,
+                'bg-[#dadada] text-[#999]': !form.captchaVerified || loading,
                 'transform scale-95': loading,
                 'cursor-wait': loading
               }"
@@ -168,7 +168,8 @@
 
 <script setup>
 import { useAuthStore } from '../stores/useAuthStore.js';
-import { useValidation } from '../composables/useValidation.js';
+import { useLoginValidation } from '../composables/useLoginValidation.js';
+import { useToast } from '../composables/useToast.js';
 import HamburgerMenu from '../components/HamburgerMenu.vue';
 import Footer from '../components/Footer.vue';
 import Header from '../components/Header.vue';
@@ -178,25 +179,26 @@ import facebookicon from '../assets/icons/fb-icon.svg';
 import googleicon from '../assets/icons/google-icon.svg';
 import { ref } from 'vue';
 
-const captchaVerified = ref(false);
-
 const authStore = useAuthStore();
-const { form, errors, handleLogin } = authStore;
-const { showPassword, togglePassword, validateEmail, validatePassword } =
-  useValidation();
-
-const validateField = (field) => {
-  errors[field] =
-    field === 'email'
-      ? validateEmail(form.email)
-      : validatePassword(form.password);
-};
+const { showToast } = useToast();
+const { form, errors, validateField, validateLoginPage, showPassword, togglePassword, resetForm } = useLoginValidation();
 
 const loading = ref(false);
-const loginAndResetCaptcha = async () => {
+
+const loginCaptcha = async () => {
+  if (!validateLoginPage()) {
+    showToast('Fill the credentials', 'error');
+    return;
+  }
+
   loading.value = true;
-  const isLoginSuccessful = await handleLogin();
-  if (isLoginSuccessful) captchaVerified.value = false;
+  const { success, message } = await authStore.handleLogin({
+    email: form.email,
+    password: form.password
+  });
   loading.value = false;
+
+  showToast(message, success ? 'success' : 'error');
+  if (success) resetForm();
 };
 </script>

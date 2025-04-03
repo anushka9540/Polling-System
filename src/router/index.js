@@ -4,12 +4,17 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-    component: () => import('../views/LoginPage.vue') // Lazy-loaded
+    component: () => import('../views/LoginPage.vue')
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: () => import('../views/SignupPage.vue') // Lazy-loaded
+    component: () => import('../views/SignupPage.vue')
+  },
+  {
+    path: '/polls',
+    name: 'PollList',
+    component: () => import('../views/PollListPage.vue') 
   }
 ];
 

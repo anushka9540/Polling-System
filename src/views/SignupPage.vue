@@ -1,13 +1,13 @@
 <template>
     <Header></Header>
-      <div class="relative flex flex-col items-center justify-center min-h-screen px-4 bg-gray-100 sm:px-0"
+      <div class="relative flex flex-col items-center justify-center min-h-screen px-4 bg-gray-100 -mt-7 sm:px-0"
         :style="{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }">
         
-        <div class="absolute w-full max-w-md p-6 bg-white border-gray-400 shadow-2xl rounded-3xl sm:right-10 sm:top-20">
+        <div class="absolute w-full max-w-md p-6 mr-20 bg-white border-gray-400 shadow-2xl -mt-9 rounded-3xl sm:right-10 sm:top-20">
           <div class="absolute top-0 left-0 w-full">
-        <img src="https://static3.zoosk.com/browser-86c22481/touch/en-GB/form-border.548a764ea427d86a828a.svg"
-          alt="Form Border" class="w-full h-auto" />
-      </div>
+           <img src="https://static3.zoosk.com/browser-86c22481/touch/en-GB/form-border.548a764ea427d86a828a.svg"
+           alt="Form Border" class="w-full h-auto" />
+          </div>
           <div class="flex mb-4 space-x-2">
             <button class="flex items-center justify-center w-full py-1 font-bold text-gray-700 border border-gray-900 rounded-lg hover:bg-gray-100">
               <img :src="facebookicon" alt="Facebook" class="w-5 h-5 mr-2"/> Sign up
@@ -28,9 +28,9 @@
           <div class="mb-4">
             <label class="block text-gray-700">Interested in:</label>
             <div class="flex mt-1 space-x-2">
-              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-2 border-gray-400 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Women</button>
-              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-2 border-gray-400 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Men</button>
-              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-2 border-gray-400 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Both</button>
+              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-gray-400 border-1 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Women</button>
+              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-gray-400 border-1 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Men</button>
+              <button class="flex-1 py-2 text-gray-800 transition-all duration-300 border-gray-400 border-1 rounded-3xl hover:bg-cyan-100 hover:border-cyan-600">Both</button>
             </div>
           </div>
           
@@ -51,12 +51,12 @@
           
           <div class="mb-4 text-gray-700">
             <label class="block text-gray-700">Email Address</label>
-            <input v-model="form.email" type="email" placeholder="name@email.com" class="w-full px-3 py-2 mt-1 bg-transparent border border-gray-400 rounded" />
+            <input type="email" placeholder="name@email.com" class="w-full px-3 py-2 mt-1 bg-transparent border border-gray-400 rounded" />
           </div>
           
           <div class="mb-4 text-gray-700">
             <label class="block text-gray-700">Password</label>
-            <input v-model="form.password" placeholder="password" class="w-full px-3 py-2 mt-1 bg-transparent border border-gray-400 rounded" />
+            <input placeholder="password" class="w-full px-3 py-2 mt-1 bg-transparent border border-gray-400 rounded" />
           </div>
           
           <div class="flex items-center p-2 mb-4 text-gray-700 border border-gray-400 rounded">
@@ -64,8 +64,18 @@
             I am human <img :src="hCaptcha" alt="" class="w-10 h-10 ml-28">
           </div>
           
-          <button @click="handleSignup" class="w-full py-2 text-white bg-blue-500 rounded">View Singles</button>
+          <button @click="handleSignup" class="w-full py-3 text-white rounded-[40px] bg-cyan-500">View Singles</button>
+          <p
+              class="pt-3 text-left text-gray-400 text-[11px] leading-loose font-normal "
+            >
+              *By selecting "Sign up", you
+              agree to our
+              <a href="#" class="underline">Terms</a> (including the mandatory
+              arbitration of disputes) and have understand our
+              <a href="#" class="underline">Privacy Notice</a>.
+            </p>
         </div>
+        
       </div>
       <Footer></Footer>
       <HamburgerMenu ref="sidebar" 
