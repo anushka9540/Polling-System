@@ -21,9 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('user', JSON.stringify(user.value));
       localStorage.setItem('token', token.value);
 
-      setTimeout(() => {
-        router.push('/polls');
-      }, 3000);
+      router.push('/polls');
 
       return successResponse;
     } catch (error) {
