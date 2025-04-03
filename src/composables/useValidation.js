@@ -34,6 +34,8 @@ export function useValidation() {
   };
 
   const validateForm = () => {
+    formSubmitted.value = true; // Move this inside
+
     errors.value.email = validateEmail(form.value.email);
     errors.value.password = validatePassword(form.value.password);
 
@@ -53,7 +55,7 @@ export function useValidation() {
     togglePassword,
     validateEmail,
     validatePassword,
-    validateForm,  // Now included here
+    validateForm,  
     form,
     errors,
     formSubmitted,

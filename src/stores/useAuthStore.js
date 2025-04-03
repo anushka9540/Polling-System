@@ -9,9 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
   const { showToast } = useToast();
 
   const handleLogin = async () => {
-    validation.formSubmitted.value = true;
-
-    if (!validation.validateForm()) {  
+    if (!validation.validateForm()) { // validation logic is fully inside the composable
       return false;
     }
 
@@ -37,4 +35,3 @@ export const useAuthStore = defineStore('auth', () => {
     handleLogin
   };
 });
-
