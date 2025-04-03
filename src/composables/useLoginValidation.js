@@ -21,7 +21,7 @@ export function useLogin() {
     if (field === 'password') isPasswordFieldEmpty(form.password);
   };
 
-  const validateLoginPage = () => {
+  const validateLogin = () => {
     validateEmail(form.email);
     isPasswordFieldEmpty(form.password);
     return !errors.email && !errors.password;
@@ -41,7 +41,7 @@ export function useLogin() {
     showPassword,
     togglePassword,
     validateField,
-    validateLoginPage,
+    validateLogin,
     resetForm
   };
 }

@@ -181,12 +181,12 @@ import { ref } from 'vue';
 
 const authStore = useAuthStore();
 const { showToast } = useToast();
-const { form, errors, validateField, validateLoginPage, showPassword, togglePassword, resetForm } = useLogin();
+const { form, errors, validateField, validateLogin, showPassword, togglePassword, resetForm } = useLogin();
 
 const loading = ref(false);
 
 const onSubmitForm = async () => {
-  if (!validateLoginPage()) {
+  if (!validateLogin()) {
     showToast('Fill the credentials', 'error');
     return;
   }
