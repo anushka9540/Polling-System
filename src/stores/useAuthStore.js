@@ -5,24 +5,24 @@ import { useToast } from '../composables/useToast';
 import { BASE_URL } from '../constant';
 
 export const useAuthStore = defineStore('auth', () => {
-  const { form, errors, validateForm, resetForm, formSubmitted } = useValidation();
+  const validation = useValidation(); 
   const { showToast } = useToast();
 
   const handleLogin = async () => {
-    formSubmitted.value = true;
+    validation.formSubmitted.value = true;
 
-    if (!validateForm()) {
+    if (!validation.validateForm()) {  
       return false;
     }
 
     try {
       const response = await axios.post(`${BASE_URL}/user/login`, {
-        email: form.value.email,
-        password: form.value.password
+        email: validation.form.value.email,
+        password: validation.form.value.password
       });
 
       showToast(response.data.message || 'Login successful!', '#4CAF50');
-      resetForm();
+      validation.resetForm();
       return true;
     } catch (error) {
       const errorMessage =
@@ -33,9 +33,8 @@ export const useAuthStore = defineStore('auth', () => {
   };
 
   return {
-    form,
-    errors,
-    handleLogin,
-    formSubmitted
+    ...validation, 
+    handleLogin
   };
 });
+

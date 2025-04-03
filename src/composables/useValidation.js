@@ -53,7 +53,7 @@ export function useValidation() {
     togglePassword,
     validateEmail,
     validatePassword,
-    validateForm,
+    validateForm,  // Now included here
     form,
     errors,
     formSubmitted,
