@@ -5,23 +5,13 @@ import { useToast } from '../composables/useToast';
 import { BASE_URL } from '../constant';
 
 export const useAuthStore = defineStore('auth', () => {
-  const {
-    form,
-    errors,
-    validateEmail,
-    validatePassword,
-    resetForm,
-    formSubmitted
-  } = useValidation();
+  const { form, errors, validateForm, resetForm, formSubmitted } = useValidation();
   const { showToast } = useToast();
 
   const handleLogin = async () => {
     formSubmitted.value = true;
 
-    errors.value.email = validateEmail(form.value.email);
-    errors.value.password = validatePassword(form.value.password);
-
-    if (errors.value.email || errors.value.password) {
+    if (!validateForm()) {
       return false;
     }
 

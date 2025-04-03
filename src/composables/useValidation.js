@@ -28,9 +28,16 @@ export function useValidation() {
 
   const validatePassword = (password) => {
     if (!password.trim()) {
-      return 'Password is required';
+      return 'Password is required.';
     }
     return '';
+  };
+
+  const validateForm = () => {
+    errors.value.email = validateEmail(form.value.email);
+    errors.value.password = validatePassword(form.value.password);
+
+    return !errors.value.email && !errors.value.password;
   };
 
   const resetForm = () => {
@@ -46,6 +53,7 @@ export function useValidation() {
     togglePassword,
     validateEmail,
     validatePassword,
+    validateForm,
     form,
     errors,
     formSubmitted,
