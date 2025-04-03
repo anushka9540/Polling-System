@@ -2,7 +2,7 @@ import { reactive, ref } from 'vue';
 import { useValidation } from './useValidation';
 
 export function useLogin() {
-  const { errors, validateEmail, validatePassword } = useValidation();
+  const { errors, validateEmail, isPasswordFieldEmpty } = useValidation();
 
   const form = reactive({
     email: '',
@@ -18,12 +18,12 @@ export function useLogin() {
 
   const validateField = (field) => {
     if (field === 'email') validateEmail(form.email);
-    if (field === 'password') validatePassword(form.password);
+    if (field === 'password') isPasswordFieldEmpty(form.password);
   };
 
   const validateLoginPage = () => {
     validateEmail(form.email);
-    validatePassword(form.password);
+    isPasswordFieldEmpty(form.password);
     return !errors.email && !errors.password;
   };
 

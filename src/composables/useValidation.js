@@ -19,7 +19,7 @@ export function useValidation() {
     return true;
   };
 
-  const validatePassword = (password) => {
+  const isPasswordFieldEmpty = (password) => {
     if (!password.trim()) {
       errors.password = 'Password is required';
       return false;
@@ -28,5 +28,5 @@ export function useValidation() {
     return true;
   };
 
-  return { errors, validateEmail, validatePassword };
+  return { errors, validateEmail, isPasswordFieldEmpty };
 }
