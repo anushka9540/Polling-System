@@ -16,7 +16,7 @@
       <router-link
         v-else
         to="/signup"
-        class="text-[#374756] no-underline font-normal md:text-[20px] hover:text-gray-400"
+        class="text-[#374756] no-underline md:text-[20px] hover:text-gray-400 font-hel font-normal font-Euclid"
       >
         Sign Up
       </router-link>

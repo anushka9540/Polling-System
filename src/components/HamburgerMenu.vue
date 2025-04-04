@@ -15,7 +15,7 @@
         <img
           src="https://static3.zoosk.com/browser-21c23b32/touch/en-US/assets/images/svg/aes-heart-red.svg"
           alt="Zoosk Logo"
-          class="h-8 w-14 md:w-20 md:h-8"
+          class="h-8 pl-1 w-14 md:w-20 md:h-8"
         />
 
         <button @click="toggleSidebar" class="text-gray-600">
@@ -40,7 +40,7 @@
         class="flex flex-col w-full space-y-2 text-base text-gray-900 md:p-4 md:space-y-4"
       >
         <nav
-          class="flex flex-col w-full p-3 space-y-4 text-gray-900 text-[18px] md:p-4 md:space-y-4"
+          class="flex flex-col w-full p-3 space-y-4 text-[#374756] text-[18px] md:p-4 md:space-y-4 font-Euclid"
         >
           <a href="#" class="block hover:text-gray-600">About Zoosk</a>
           <a href="#" class="block hover:text-gray-600">Help Center</a>
@@ -51,7 +51,7 @@
         </nav>
 
         <nav
-          class="flex flex-col w-full p-4 space-y-4 text-[18px] text-gray-600 md:space-y-4"
+          class="flex flex-col w-full p-4 space-y-4 text-[18px] text-[#7F8B96] md:space-y-4 font-Euclid"
         >
           <a href="#" class="block hover:text-gray-400">Privacy</a>
           <a href="#" class="block hover:text-gray-400">Safety</a>
@@ -61,7 +61,7 @@
         <div class="flex flex-col items-center w-full mt-10 md:items-start">
           <!-- App Store and Google Play -->
           <div
-            class="flex flex-wrap justify-center gap-2 sm:gap-6 md:gap-8"
+            class="flex flex-wrap justify-center gap-2 pl-5 sm:gap-6 md:gap-8"
             style="gap: 3rem !important"
           >
             <img :src="appStore" alt="App Store" class="w-32 md:w-28" />
@@ -69,7 +69,7 @@
           </div>
 
           <!-- Social Media Icons -->
-          <div class="flex justify-center gap-6 mt-10 sm:mt-24 md:mt-28">
+          <div class="flex justify-center gap-6 pl-5 mt-10 sm:mt-24 md:mt-28">
             <a href="https://www.facebook.com/">
               <img :src="facebookIcon" class="w-10 md:w-8" alt="Facebook" />
             </a>
@@ -86,7 +86,7 @@
           class="flex flex-col w-full space-y-5 text-xs text-gray-800 md:flex-row md:justify-between md:items-center"
         >
           <p
-            class="order-2 w-full mt-16 font-semibold text-center md:text-left md:w-auto md:order-1 text-[18px]"
+            class="order-2 w-full mt-16 font-semibold text-center md:text-left md:w-auto md:order-1 text-[18px] pl-5"
           >
             © 2025 Zoosk
           </p>

@@ -10,7 +10,7 @@
       }"
     >
       <div
-        class="w-full max-w-[480px] relative mt-[-16px] sm:w-[100%] sm:px-4 lg:w-[480px] sm:p-8 lg:mt-[-37px] lg:pb-20 pb-9"
+        class="w-full max-w-[480px] relative mt-[-16px] sm:w-[100%] sm:px-4 lg:w-[480px] sm:p-8 lg:mt-[-37px] lg:pb-20 pb-9 p-2.5"
         style="filter: drop-shadow(0px 4px 20px rgba(55, 71, 86, 0.15))"
       >
         <div class="top-0 left-0 w-full">
@@ -25,7 +25,7 @@
             <div class="mb-4">
               <label
                 for="email"
-                class="block text-[#5a6978] pt-[30px] leading-[22px] font-sans text-[15px] font-normal"
+                class="block text-[#5a6978] pt-[30px] leading-[22px] text-[15.5px] font-normal font-Euclid"
               >
                 Email Address:
               </label>
@@ -44,7 +44,7 @@
             <div class="relative mb-4">
               <label
                 for="password"
-                class="block text-[#5a6978] mt-[20px] font-sans text-[15px] font-normal"
+                class="block text-[#5a6978] mt-[20px] text-[15.5px] font-normal font-Euclid"
                 >Password:</label
               >
               <input
@@ -105,7 +105,7 @@
               </label>
 
               <label
-                class="text-[rgb(85,85,85)] cursor-pointer text-[14px] ml-3"
+                class="text-[rgb(85,85,85)] cursor-pointer text-[14px] ml-2"
                 >I am human</label
               >
               <img :src="hCaptchaImg" class="h-[43px] ml-[80px]" />
@@ -127,9 +127,9 @@
           </form>
 
           <div class="flex items-center my-4 justify-evenly">
-            <div class="border w-[100px]"></div>
+            <div class="border w-[100px] border-[#7f8b96]"></div>
             <span class="text-[#7f8b96] text-[13px]">Or</span>
-            <div class="border w-[100px]"></div>
+            <div class="border w-[100px] border-[#7f8b96]"></div>
           </div>
 
           <div class="flex flex-col items-center space-y-4">
@@ -141,18 +141,18 @@
             </button>
 
             <button
-              class="w-full h-[40px] bg-white border border-gray-400 text-gray-600 rounded-[8px] flex items-center justify-center hover:bg-gray-100 text-[16px]"
+              class="w-full h-[40px] bg-white border border-gray-400 text-[#5A6978] rounded-[8px] flex items-center justify-center hover:bg-gray-100 text-[16px]"
             >
               <img :src="googleicon" class="mr-5 w-[27px] h-[22px]" />
               Log in with Google*
             </button>
 
             <p
-              class="pt-1 text-left text-gray-400 text-[10px] leading-loose pb-3 font-normal"
+              class="pt-1 text-left text-[#7F8B96] text-[12px] leading-loose pb-3 font-normal"
             >
               *By selecting "Log in with Facebook" or "Log in with Google", you
               agree to our
-              <a href="#" class="underline">Terms</a> (including the mandatory
+              <a href="#" class="underline">Terms of use</a> (including the mandatory
               arbitration of disputes) and consent to our
               <a href="#" class="underline">Privacy Policy</a>.
             </p>
@@ -178,26 +178,21 @@ import hCaptchaImg from '../assets/captcha/hcapctha.jpg';
 import facebookicon from '../assets/icons/fb-icon.svg';
 import googleicon from '../assets/icons/google-icon.svg';
 import { ref } from 'vue';
-
 const authStore = useAuthStore();
 const { showToast } = useToast();
 const { form, errors, validateField, validateLogin, showPassword, togglePassword, resetForm } = useLogin();
-
 const loading = ref(false);
-
 const onSubmitForm = async () => {
   if (!validateLogin()) {
     showToast('Fill the credentials', 'error');
     return;
   }
-
   loading.value = true;
   const { success, message } = await authStore.handleLogin({
     email: form.email,
     password: form.password
   });
   loading.value = false;
-
   showToast(message, success ? 'success' : 'error');
   if (success) resetForm();
 };

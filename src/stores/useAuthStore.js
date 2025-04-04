@@ -22,10 +22,7 @@ export const useAuthStore = defineStore('auth', () => {
       usertoken.value = response.data.usertoken;
 
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      localStorage.setItem(
-        'usertoken',
-        JSON.stringify(response.data.usertoken)
-      );
+      localStorage.setItem('usertoken',JSON.stringify(response.data.usertoken));
       router.push('/polls');
 
       return successResponse;

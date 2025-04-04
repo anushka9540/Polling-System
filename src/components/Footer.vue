@@ -1,12 +1,10 @@
 <script setup>
 import { ref } from 'vue';
-
 import appStore from '../assets/logo image/app-store.svg';
 import googlePlay from '../assets/logo image/google-play.svg';
 import facebookIcon from '../assets/icons/footer-fbIcon.svg';
 import twitterIcon from '../assets/icons/footer-twitterIcon.svg';
 import instagramIcon from '../assets/icons/footer-instaIcon.svg';
-
 const footerColumns = ref([
   {
     title: 'Zoosk Dating',
@@ -34,7 +32,6 @@ const footerColumns = ref([
     ]
   }
 ]);
-
 const legalLinks = ref([
   'Accessibility',
   'Safety',
@@ -47,7 +44,7 @@ const legalLinks = ref([
 
 <template>
   <div
-    class="w-full bg-white px-4 sm:px-10 lg:px-[70px] sm:mt-[90px] md:mt-[2px]"
+    class="w-full bg-white px-4 sm:px-10 lg:px-[70px] sm:mt-[90px] md:mt-[2px] font-Euclid"
   >
     <div class="flex flex-wrap justify-center gap-6 pt-10 text-center">
       <img :src="appStore" class="h-[45px] w-[120px]" alt="App Store" />
@@ -61,7 +58,7 @@ const legalLinks = ref([
     <div class="border-gray-300 border-[0.1px] mb-6"></div>
 
     <div
-      class="grid grid-cols-1 gap-8 text-sm text-gray-700 sm:grid-cols-1 lg:grid-cols-4 mt-[40px]"
+      class="grid grid-cols-1 gap-8 text-sm text-gray-700 sm:grid-cols-1 lg:grid-cols-4 mt-[40px] font-Euclid"
       style="@media (min-width: 2500px) {font-size: 24px}"
     >
       <div
@@ -110,10 +107,10 @@ const legalLinks = ref([
       >
         <a
           href="#"
-          class="hover:text-gray-500"
+          class="mt-3 hover:text-gray-500"
           v-for="(item, idx) in legalLinks"
           :key="idx"
-          >{{ item }} |</a
+          >{{ item }} <span v-if="idx !== legalLinks.length - 1" class="ml-3">|</span></a
         >
       </div>
     </div>
