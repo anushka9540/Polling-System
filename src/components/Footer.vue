@@ -44,7 +44,7 @@ const legalLinks = ref([
 
 <template>
   <div
-    class="w-full bg-white px-4 sm:px-10 lg:px-[70px] sm:mt-[90px] md:mt-[2px] font-Euclid"
+    class="w-full bg-white px-4 sm:px-10 lg:px-[70px] sm:mt-[90px] md:mt-[2px]"
   >
     <div class="flex flex-wrap justify-center gap-6 pt-10 text-center">
       <img :src="appStore" class="h-[45px] w-[120px]" alt="App Store" />
@@ -103,11 +103,11 @@ const legalLinks = ref([
       </p>
 
       <div
-        class="flex flex-wrap md:text-[15px] justify-center gap-3 sm:gap-4 font-sans font-[500] lg:justify-start text-[16px] pl-6"
+        class="flex flex-wrap md:text-[16px] justify-center gap-3 sm:gap-4 font-[500] lg:justify-start text-[16px] pl-6 font-Euclid"
       >
         <a
           href="#"
-          class="mt-3 hover:text-gray-500"
+          class="mt-6 hover:text-gray-500"
           v-for="(item, idx) in legalLinks"
           :key="idx"
           >{{ item }} <span v-if="idx !== legalLinks.length - 1" class="ml-3">|</span></a
