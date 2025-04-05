@@ -72,7 +72,7 @@ const legalLinks = ref([
         >
           <li
             v-if="column.title === 'Follow Zoosk'"
-            class="flex justify-center gap-4 lg:justify-start font-Euclid"
+            class="flex justify-center md:gap-5 lg:justify-start font-Euclid gap-9"
           >
             <a
               v-for="(item, idx) in column.links"
@@ -96,7 +96,7 @@ const legalLinks = ref([
     </div>
 
     <div
-      class="flex flex-col-reverse lg:flex-row justify-between items-center mt-10 space-y-4 text-[15px] text-center text-[#374756] lg:space-y-0 lg:text-left p-2"
+      class="flex flex-col-reverse lg:flex-row justify-between items-center mt-4 space-y-4 text-[15px] text-center text-[#374756] lg:space-y-0 lg:text-left p-2"
     >
       <p class="md:text-[16px] mt-9 font-Eucld">
         &copy; Copyright 2007-2025 Zoosk, Inc. All rights reserved.
