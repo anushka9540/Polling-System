@@ -69,7 +69,7 @@
             </div>
 
             <div class="text-center mb-[15px] mt-[19px]">
-              <a href="#" class="text-[15px] text-[#5a6978] font-medium"
+              <a href="#" class="text-[15px] text-[#5a6978] font-Euclid"
                 >Forgot Password?</a
               >
             </div>
@@ -121,7 +121,7 @@
                 'cursor-wait': loading
               }"
             >
-              <span v-if="loading" class="loader"></span>
+              <span v-if="loading" class="loader font-Euclid"></span>
               Log In
             </button>
           </form>
@@ -134,21 +134,21 @@
 
           <div class="flex flex-col items-center space-y-4">
             <button
-              class="w-full h-[40px] bg-white border border-gray-400 text-[#1b3e85] rounded-[8px] flex items-center justify-center hover:bg-gray-100 font-medium text-[15px]"
+              class="w-full h-[40px] bg-white border border-gray-400 text-[#1b3e85] rounded-[8px] flex items-center justify-center hover:bg-gray-100 font-Euclid text-[15px]"
             >
               <img :src="facebookicon" class="mr-5 w-[30px] h-[25px]" />
               Log in with Facebook*
             </button>
 
             <button
-              class="w-full h-[40px] bg-white border border-gray-400 text-[#5A6978] rounded-[8px] flex items-center justify-center hover:bg-gray-100 text-[16px]"
+              class="w-full h-[40px] font-Euclid bg-white border border-gray-400 text-[#5A6978] rounded-[8px] flex items-center justify-center hover:bg-gray-100 text-[16px]"
             >
               <img :src="googleicon" class="mr-5 w-[27px] h-[22px]" />
               Log in with Google*
             </button>
 
             <p
-              class="pt-1 text-left text-[#7F8B96] text-[12px] leading-loose pb-3 font-normal"
+              class="pt-1 text-left text-[#7F8B96] text-[12px] leading-loose pb-3 font-Eucld"
             >
               *By selecting "Log in with Facebook" or "Log in with Google", you
               agree to our

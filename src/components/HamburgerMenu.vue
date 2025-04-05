@@ -9,13 +9,13 @@
   <transition name="slide-right">
     <aside
       v-if="isSidebarOpen"
-      class="fixed top-0 right-0 z-50 h-full bg-white shadow-lg w-full md:w-[470px] md:pl-9 pt-3 flex flex-col md:items-start items-center text-center md:text-left space-y-3 overflow-y-auto md:pr-9"
+      class="fixed top-0 right-0 z-50 h-full bg-white shadow-lg w-full md:w-[470px] md:pl-9 pt-3 flex flex-col md:items-start items-center text-center md:text-left space-y-3 overflow-y-auto md:pr-10"
     >
-      <div class="flex items-center justify-between w-full">
+      <div class="flex items-center justify-between w-full p-3 pt-4 md:pt-4 md:p-0">
         <img
           src="https://static3.zoosk.com/browser-21c23b32/touch/en-US/assets/images/svg/aes-heart-red.svg"
           alt="Zoosk Logo"
-          class="h-8 w-14 md:w-20 md:h-8"
+          class="h-8 md:-ml-3 w-14 md:w-20 md:h-8"
         />
 
         <button @click="toggleSidebar" class="text-gray-600">
@@ -40,7 +40,7 @@
         class="flex flex-col w-full space-y-2 text-base text-gray-900 md:space-y-4"
       >
         <nav
-          class="flex flex-col w-full p-3 space-y-4 text-[#374756] text-[18px] md:p-4 md:space-y-4 font-Euclid"
+          class="flex flex-col w-full p-3 space-y-4 text-[#374756] text-[18px] md:p-3 md:space-y-4 font-Euclid"
         >
           <a href="#" class="block hover:text-gray-600">About Zoosk</a>
           <a href="#" class="block hover:text-gray-600">Help Center</a>
@@ -83,10 +83,10 @@
         </div>
 
         <div
-          class="flex flex-col w-full space-y-5 text-xs text-gray-800 md:flex-row md:justify-between md:items-center"
+          class="flex flex-col w-full space-y-5 text-xs text-gray-800 pb-9 md:flex-row md:justify-between md:items-center"
         >
           <p
-            class="order-2 w-full mt-16 font-semibold text-center md:text-left md:w-auto md:order-1 text-[18px] pl-3"
+            class="order-2 w-full mt-24 font-semibold text-center md:text-left md:w-auto md:order-1 text-[18px] pl-2"
           >
             © 2025 Zoosk
           </p>
@@ -96,7 +96,7 @@
           >
             <button
               @click="toggleDropdown"
-              class="flex items-center justify-between md:w-44 p-3 text-gray-600 bg-gray-100 border border-gray-400 rounded-lg text-[16px] font-semibold w-52"
+              class="flex items-center mt-8 justify-between md:w-44 p-3 text-gray-600 bg-gray-100 border border-gray-400 rounded-lg text-[16px] font-semibold w-52"
             >
               {{ selectedLanguage }}
               <span class="ml-2"
@@ -133,11 +133,9 @@ import googlePlay from '../assets/logo image/google-play.svg';
 import facebookIcon from '../assets/icons/facebookicon.svg';
 import xIcon from '../assets/icons/xicon.svg';
 import instaIcon from '../assets/icons/instaicon.svg';
-
 const isSidebarOpen = ref(false);
 const isDropdownOpen = ref(false);
 const selectedLanguage = ref('English');
-
 const languages = ref([
   'Dansk',
   'Deutsch',
@@ -148,20 +146,16 @@ const languages = ref([
   'Ελληνικά',
   'Français'
 ]);
-
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value;
 };
-
 const toggleDropdown = () => {
   isDropdownOpen.value = !isDropdownOpen.value;
 };
-
 const selectLanguage = (language) => {
   selectedLanguage.value = language;
   isDropdownOpen.value = false;
 };
-
 defineExpose({ toggleSidebar });
 </script>
 
@@ -175,7 +169,6 @@ defineExpose({ toggleSidebar });
 .fade-leave-to {
   opacity: 0;
 }
-
 .slide-right-enter-active,
 .slide-right-leave-active {
   transition: transform 0.3s ease;

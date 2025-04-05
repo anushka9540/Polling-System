@@ -3,9 +3,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        Euclid: ['Euclid'],
+        Euclid: ['Euclid','Helvetica Neue','Helvetica', 'Arial', 'sans-serif'],
         hel: ['Helvetica Neue', ''],
-        eup: ['Euphoria Script', 'cursive']
+        eup: ['Euphoria Script', 'cursive'],
+        euclid:['EuclidBold','Helvetica Neue','Helvetica', 'Arial', 'sans-serif'],
+        Eucld:['EuclidLight','Helvetica Neue','Helvetica', 'Arial', 'sans-serif']
       }
     }
   },
