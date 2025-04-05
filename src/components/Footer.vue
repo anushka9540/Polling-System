@@ -68,17 +68,17 @@ const legalLinks = ref([
       >
         <h3 class="mb-6 font-sans font-bold text-[16px]">{{ column.title }}</h3>
         <ul
-          class="space-y-6 text-[#374756] leading-[20px] font-medium text-[16px]"
+          class="space-y-6 text-[#374756] leading-[20px] font-medium text-[16px] font-Euclid"
         >
           <li
             v-if="column.title === 'Follow Zoosk'"
-            class="flex justify-center gap-4 lg:justify-start"
+            class="flex justify-center md:gap-5 lg:justify-start font-Euclid gap-9"
           >
             <a
               v-for="(item, idx) in column.links"
               :key="idx"
               :href="item.url"
-              class="hover:text-gray-500 text-[16px]"
+              class="hover:text-gray-500 text-[16px] font-Euclid"
             >
               <img :src="item.icon" :alt="item.name" class="w-10 h-10" />
             </a>
@@ -96,9 +96,9 @@ const legalLinks = ref([
     </div>
 
     <div
-      class="flex flex-col-reverse lg:flex-row justify-between items-center mt-10 space-y-4 text-[15px] text-center text-[#374756] lg:space-y-0 lg:text-left p-2"
+      class="flex flex-col-reverse lg:flex-row justify-between items-center mt-4 space-y-4 text-[15px] text-center text-[#374756] lg:space-y-0 lg:text-left p-2"
     >
-      <p class="md:text-[16px] mt-7">
+      <p class="md:text-[16px] mt-9 font-Eucld">
         &copy; Copyright 2007-2025 Zoosk, Inc. All rights reserved.
       </p>
 
@@ -107,7 +107,7 @@ const legalLinks = ref([
       >
         <a
           href="#"
-          class="mt-6 hover:text-gray-500"
+          class="hover:text-gray-500 md:mt-9"
           v-for="(item, idx) in legalLinks"
           :key="idx"
           >{{ item }} <span v-if="idx !== legalLinks.length - 1" class="ml-3">|</span></a
@@ -116,13 +116,13 @@ const legalLinks = ref([
     </div>
 
     <p
-      class="mt-12 text-left text-gray-700 pb-20 leading-[17px] font-sans text-[12px]"
+      class="mt-12 text-left text-gray-700 pb-20 leading-[17px] text-[12px] font-euclid"
     >
-      <strong
+      <strong class="font-euclid"
         >ZOOSK DOES NOT CONDUCT CRIMINAL BACKGROUND CHECKS ON THE MEMBERS OR THE
         SUBSCRIBERS OF THIS WEBSITE.</strong
       ><br />
-      <strong
+      <strong class="font-euclid"
         >HOWEVER, THE SAFETY AND SECURITY OF OUR MEMBERS IS OUR TOP PRIORITY. BY
         SIGNING UP TO OUR SERVICES YOU ALSO AGREE TO READ AND FOLLOW OUR
       </strong>

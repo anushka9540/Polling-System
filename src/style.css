@@ -10,6 +10,16 @@
   src: url("/fonts/HelveticaNeueHeavy.otf");
 }
 
+@font-face {
+  font-family: 'EuclidBold';
+  src: url("/fonts/Euclid\ Circular\ A\ Bold.ttf");
+}
+
+@font-face {
+  font-family: 'EuclidLight';
+  src: url("/fonts/Euclid\ Circular\ A\ Light.ttf");
+}
+
 :root {
   line-height: 1.5;
   font-weight: 400;
@@ -100,4 +110,11 @@ button {
       font-size: 1.3rem;
     }
   }
+
+  @media (max-width: 768px) {
+    .hide-on-768-and-below {
+      display: none;
+    }
+  }
+  
 }

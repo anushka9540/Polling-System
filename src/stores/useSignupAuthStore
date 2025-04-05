@@ -1,0 +1,41 @@
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+import { BASE_URL } from '../constants/constant.js';
+import { useToast } from '../composables/useToast';
+
+export const useSignupAuth = defineStore('signupAuth', () => {
+  const router = useRouter();
+  const loading = ref(false);
+  const { showToast } = useToast();
+
+  const handleSignup = async (payload) => {
+    loading.value = true;
+
+    try {
+      const response = await axios.post(`${BASE_URL}/user/register`, payload);
+
+      showToast('Sign Up Successfully!!', 'success');
+      router.push('/');
+
+      return {
+        success: true,
+        message: response.data.message || 'Sign Up Successfully!!'
+      };
+    } catch (error) {
+      const message =
+        error.response?.data?.message || 'An error occurred during signup.';
+      showToast(message, 'error');
+
+      return {
+        success: false,
+        message
+      };
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  return { handleSignup, loading };
+});
