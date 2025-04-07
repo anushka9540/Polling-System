@@ -109,12 +109,5 @@ button {
     .xl-2560 label {
       font-size: 1.3rem;
     }
-  }
-
-  @media (max-width: 768px) {
-    .hide-on-768-and-below {
-      display: none;
-    }
-  }
-  
+  }  
 }

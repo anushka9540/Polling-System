@@ -1,26 +1,30 @@
 <template>
-  <Header></Header>
-  <div class="relative flex justify-center px-4 py-10 bg-gray-100 md:justify-end sm:px-0"
-
+  <Header />
+  <div
+    class="relative flex justify-center px-4 py-10 bg-gray-100 md:justify-end sm:px-0"
     :style="{
       backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: 'contain',
+      backgroundSize: '115%',
       backgroundPosition: 'center bottom',
       backgroundRepeat: 'no-repeat'
     }"
   >
+    <div
+      class="absolute left-20 top-[75px] max-w-[850px] hide-on-768-and-below"
+    >
+      <h1
+        class="xl:text-[54px] text-[#374756] font-bold leading-tight font-euclid text-[45px] responsive-heading"
+      >
+        Your one in a million might be closer than you think.
+      </h1>
+      <p class="mt-4 text-[#374756] xl:text-[30px] text-[25px]">
+        <strong>1.6 million</strong> messages sent daily.
+      </p>
+    </div>
 
-  <div class="absolute left-20 top-[75px] max-w-[850px] hide-on-768-and-below">
-  <h1 class="text-[54px] text-[#374756] font-bold leading-tight font-euclid">
-    Your one in a million might be <br />
-    closer than you think.
-  </h1>
-  <p class="mt-4 text-base text-[#374756] text-[30px]">
-    <strong>1.6 million</strong> messages sent daily.
-  </p>
-</div>
-
-    <div class="relative w-full max-w-md p-8 bg-white border-gray-400 shadow-2xl rounded-3xl sm:mr-20">
+    <div
+      class="relative w-full max-w-md p-8 bg-white border-gray-400 shadow-2xl rounded-3xl md:mr-16 form-center top-[-40px] md:top-[-10px]"
+    >
       <div class="absolute top-0 left-0 w-full">
         <img
           src="https://static3.zoosk.com/browser-86c22481/touch/en-GB/form-border.548a764ea427d86a828a.svg"
@@ -30,81 +34,114 @@
       </div>
 
       <div class="flex mb-4 space-x-2">
-        <button class="flex items-center justify-center w-full py-2 font-bold text-[#374756] border border-gray-900 rounded-lg hover:bg-gray-100">
-          <img :src="facebookicon" alt="Facebook" class="w-5 h-5 mr-2" /> Sign up
+        <button
+          class="flex items-center justify-center w-full py-3 font-bold text-[#374756] border border-[#374756] rounded-md hover:bg-gray-100"
+        >
+          <img :src="facebookIcon" alt="Facebook" class="w-[25px] h-5 mr-2" />
+          Sign up
         </button>
-        <button class="flex items-center justify-center w-full py-2 font-bold text-[#374756] border border-gray-900 rounded-lg hover:bg-gray-100">
+        <button
+          class="flex items-center justify-center w-full py-3 font-bold text-[#374756] border border-[#374756] rounded-md hover:bg-gray-100"
+        >
           <img :src="googleicon" alt="Google" class="w-5 h-5 mr-2" /> Sign up
         </button>
       </div>
 
-      <div class="mb-4 text-[#374756]">
-        <label class="block text-[#374756] font-euclid">Role</label>
-        <select v-model="form.role" class="w-full px-3 py-2 mt-1 bg-transparent border border-gray-400 rounded">
-          <option value="">Select Role</option>
-          <option value="user">User</option>
-          <option value="moderator">Moderator</option>
-          <option value="admin">Admin</option>
-        </select>
-        <p v-if="errors.role" class="text-sm text-red-500">{{ errors.role }}</p>
+      <div class="mb-4">
+        <label class="block text-[#374756] font-euclid mb-2"
+          >Select a Role:</label
+        >
+        <div v-if="roleStore.roles.length > 0" class="grid grid-cols-2 gap-3">
+          <button
+            v-for="role in roleStore.roles"
+            :key="role.id"
+            @click="form.role = role"
+            type="button"
+            :class="[
+              'w-full py-3 rounded-full font-medium border-2 text-center transition-all duration-200',
+              form.role?.id === role.id
+                ? 'bg-[#E6F8FF] text-[#374756] border-[#19B7EA]'
+                : 'bg-[#F8F9FA] text-[#374756] border-[#A4ADB5] hover:bg-[#E6F8FF] hover:border-[#19B7EA]'
+            ]"
+          >
+            {{ role.name }}
+          </button>
+        </div>
+        <div v-else class="text-[#374756]">
+          <button
+            class="w-full py-3 font-medium text-center transition-all duration-200 border border-[#A4ADB5] rounded-full"
+          >
+            Role Loading...
+          </button>
+        </div>
+        <p v-if="errors.role" class="mt-1 text-sm text-red-500">
+          {{ errors.role }}
+        </p>
       </div>
 
-      <div class="mb-4">
-        <label class="block text-[#374756] font-euclid">First Name</label>
-        <input v-model="form.firstName" type="text" placeholder="First name" class="w-full px-3 py-2 mt-1 text-[#374756] bg-transparent border border-gray-400 rounded" />
-        <p v-if="errors.firstName" class="text-sm text-red-500">{{ errors.firstName }}</p>
-      </div>
-
-      <div class="mb-4">
-        <label class="block text-[#374756] font-euclid">Last Name</label>
-        <input v-model="form.lastName" type="text" placeholder="Last name" class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-gray-400 rounded" />
-        <p v-if="errors.lastName" class="text-sm text-red-500">{{ errors.lastName }}</p>
+      <div class="flex gap-2 mb-4 juistify-between">
+        <div>
+          <label class="block text-[#374756] font-euclid">First Name</label>
+          <input
+            v-model="form.firstName"
+            type="text"
+            placeholder="First name"
+            class="w-full px-3 py-2 mt-1 text-[#374756] bg-transparent border border-[#A4ADB5] rounded focus:outline-none"
+          />
+          <p v-if="errors.firstName" class="text-sm text-red-500">
+            {{ errors.firstName }}
+          </p>
+        </div>
+        <div>
+          <label class="block text-[#374756] font-euclid">Last Name</label>
+          <input
+            v-model="form.lastName"
+            type="text"
+            placeholder="Last name"
+            class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-[#A4ADB5] rounded focus:outline-none"
+          />
+          <p v-if="errors.lastName" class="text-sm text-red-500">
+            {{ errors.lastName }}
+          </p>
+        </div>
       </div>
 
       <div class="mb-4">
         <label class="block text-[#374756] font-euclid">Email</label>
-        <input v-model="form.email" type="email" placeholder="name@gmail.com" class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-gray-400 rounded" />
-        <p v-if="errors.email" class="text-sm text-red-500">{{ errors.email }}</p>
+        <input
+          v-model="form.email"
+          type="email"
+          placeholder="name@gmail.com"
+          class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-[#A4ADB5] rounded focus:outline-none"
+        />
+        <p v-if="errors.email" class="text-sm text-red-500">
+          {{ errors.email }}
+        </p>
       </div>
 
       <div class="mb-4">
-        <label class="block text-[#374756] font-euclid">Password</label>
-        <input v-model="form.password" type="password" placeholder="Password" class="w-full px-3 py-2 mt-1 bg-transparent border border-gray-400 rounded text-[#374756]" />
-        <p v-if="errors.password" class="text-sm text-red-500">{{ errors.password }}</p>
+        <PasswordInput/>
       </div>
 
-      <div class="mb-4">
-        <label class="block text-[#374756] font-euclid">Confirm Password</label>
-        <input v-model="form.confirmPassword" type="password" placeholder="Confirm Password" class="w-full px-3 py-2 mt-1 bg-transparent border border-gray-400 rounded text-[#374756]" />
-        <p v-if="errors.confirmPassword" class="text-sm text-red-500">{{ errors.confirmPassword }}</p>
-      </div>
+      <Captcha :errors="errors" @update:modelValue="updateCaptchaVerified" />
 
-      <div class="flex items-center p-2 mb-4 text-[#374756] border border-gray-400 rounded">
-        <label class="flex items-center cursor-pointer">
-          <input type="checkbox" class="hidden peer" v-model="form.captchaVerified" />
-          <div class="mr-2 w-[28px] h-[28px] border border-gray-400 rounded-[4px] bg-white transition-all duration-300 ease-in-out transform cursor-pointer flex items-center justify-center peer-checked:bg-[#f9fbfc] peer-checked:border-[#215b6e] peer-checked:border-2 peer-checked:shadow-lg">
-            <svg v-if="form.captchaVerified" class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          I am human
-        </label>
-        <img :src="hCaptcha" alt="hCaptcha" class="w-10 h-10 ml-4" />
-      </div>
-      <p v-if="errors.captchaVerified" class="mb-4 text-sm text-red-500">{{ errors.captchaVerified }}</p>
-
-      <button @click="handleSignup" class="w-full py-3 text-white rounded-[40px] bg-cyan-500">
-        View Singles
+      <button
+        @click="handleSignup"
+        class="w-full py-3 text-white rounded-[40px] bg-[#19b7ea] hover:bg-cyan-400 text-[20px] font-Euclid"
+      >
+        Register
       </button>
-      <p class="pt-3 text-left text-gray-400 text-[11px] leading-loose font-Eucld">
+      <p
+        class="pt-3 text-left text-gray-400 text-[11px] leading-loose font-Eucld"
+      >
         *By selecting "Sign up", you agree to our
-        <a href="#" class="underline">Terms</a> (including the mandatory
+        <a href="#" class="underline">Terms of use</a> (including the mandatory
         arbitration of disputes) and have understood our
         <a href="#" class="underline">Privacy Notice</a>.
       </p>
     </div>
   </div>
-  <Footer></Footer>
+  <Footer />
   <HamburgerMenu
     ref="sidebar"
     :logo="zoosklogo"
@@ -117,34 +154,45 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import backgroundImage from '../assets/background/background-img.webp';
+import { ref, onMounted } from 'vue';
+import backgroundImage from '../assets/background/singup bgImage.webp';
 import HamburgerMenu from '../components/HamburgerMenu.vue';
-import facebookicon from '../assets/icons/fb-icon.svg';
+import facebookIcon from '../assets/icons/facebookicon.svg';
 import googleicon from '../assets/icons/google-icon.svg';
 import Footer from '../components/Footer.vue';
-import hCaptcha from '../assets/captcha/hcapctha.jpg';
 import Header from '../components/Header.vue';
 import { useSignupValidation } from '../composables/useSignupValidation';
-import { useSignupAuth } from '../stores/useSignupAuthStore'; 
-import { useToast } from '../composables/useToast'; 
+import { useSignupAuth } from '../stores/useSignupAuthStore';
+import { useToast } from '../composables/useToast';
+import { useRoleStore } from '../stores/useRollAuthStore.js';
+import { useRouter } from 'vue-router';
+import Captcha from '../components/Captcha.vue';
+import PasswordInput from '../components/PasswordInput.vue';
 
-const sidebar = ref(null);
-const toggleSidebar = () => {
-  if (sidebar.value) sidebar.value.toggleSidebar();
+const roleStore = useRoleStore();
+onMounted(() => {
+  roleStore.fetchRoles();
+});
+
+const updateCaptchaVerified = (value) => {
+  captchaVerified.value = value;
 };
 
-const {
-  form,
-  errors,
-  validateSignupForm,
-} = useSignupValidation();
-
-const { handleSignup: signupApi } = useSignupAuth(); 
-const { showToast } = useToast(); 
-
+const { form, errors, validateSignupForm, showPassword, togglePassword } =
+  useSignupValidation();
+const { handleSignup: signupApi } = useSignupAuth();
+const { showToast } = useToast();
+const router = useRouter();
+const captchaVerified = ref(false);
 const handleSignup = async () => {
+  if (!captchaVerified.value) {
+    errors.captchaVerified = 'Please verify that you are human';
+  } else {
+    errors.captchaVerified = '';
+    console.log('Form submitted');
+  }
   const isValid = validateSignupForm();
+
   if (!isValid) return;
 
   const payload = {
@@ -152,22 +200,33 @@ const handleSignup = async () => {
     lastName: form.lastName,
     email: form.email,
     password: form.password,
-    role: form.role
+    roleId: form.role.id
   };
 
-  const response = await signupApi(payload);
+  const { success, message } = await signupApi(payload);
 
-  if (!response.success) {
-    showToast(response.message, 'error');
+  showToast(message, success ? 'success' : 'error');
+
+  if (success) {
+    router.push('/');
   }
 };
-
-const months = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
-];
-
-const currentYear = new Date().getFullYear();
-const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
 </script>
 
+<style scoped>
+@media (max-width: 768px) {
+  .hide-on-768-and-below {
+    display: none !important;
+  }
+  .form-center {
+    margin: 0 auto;
+  }
+}
+@media (max-width: 1024px) {
+  .responsive-heading {
+    font-size: 44px;
+    max-width: 430px;
+    line-height: 1.2;
+  }
+}
+</style>

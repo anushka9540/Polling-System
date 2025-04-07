@@ -1,39 +1,38 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
 import { BASE_URL } from '../constants/constant.js';
-import { useToast } from '../composables/useToast';
 
 export const useSignupAuth = defineStore('signupAuth', () => {
-  const router = useRouter();
   const loading = ref(false);
-  const { showToast } = useToast();
 
   const handleSignup = async (payload) => {
     loading.value = true;
 
     try {
       const response = await axios.post(`${BASE_URL}/user/register`, payload);
+      console.log(response);
 
-      showToast('Sign Up Successfully!!', 'success');
-      router.push('/');
+      localStorage.setItem('user', JSON.stringify(response.data?.user || {}));
 
       return {
         success: true,
-        message: response.data.message || 'Sign Up Successfully!!'
+        message: response?.data?.message || 'Registration successful!'
       };
     } catch (error) {
-      const message =
-        error.response?.data?.message || 'An error occurred during signup.';
-      showToast(message, 'error');
-
+      const errorMessage =
+      error.response?.data?.message || 'Signup failed!';
+       
+      if (errorMessage.includes('Duplicate entry')) {
+        return {
+          success: false,
+          message: 'Email is already in use. Please try another.'
+        };
+      }
       return {
         success: false,
-        message
+        message: errorMessage
       };
-    } finally {
-      loading.value = false;
     }
   };
 
