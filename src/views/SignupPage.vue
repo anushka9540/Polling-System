@@ -4,7 +4,7 @@
     class="relative flex justify-center px-4 py-10 bg-gray-100 md:justify-end sm:px-0"
     :style="{
       backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: '115%',
+      backgroundSize: '105%',
       backgroundPosition: 'center bottom',
       backgroundRepeat: 'no-repeat'
     }"
@@ -35,13 +35,13 @@
 
       <div class="flex mb-4 space-x-2">
         <button
-          class="flex items-center justify-center w-full py-3 font-bold text-[#374756] border border-[#374756] rounded-md hover:bg-gray-100"
+          class="flex items-center justify-center w-full py-3 font-euclid text-[#374756] border border-[#374756] rounded-md hover:bg-gray-100"
         >
           <img :src="facebookIcon" alt="Facebook" class="w-[25px] h-5 mr-2" />
           Sign up
         </button>
         <button
-          class="flex items-center justify-center w-full py-3 font-bold text-[#374756] border border-[#374756] rounded-md hover:bg-gray-100"
+          class="flex items-center justify-center w-full py-3 font-euclid text-[#374756] border border-[#374756] rounded-md hover:bg-gray-100"
         >
           <img :src="googleicon" alt="Google" class="w-5 h-5 mr-2" /> Sign up
         </button>
@@ -86,7 +86,7 @@
             v-model="form.firstName"
             type="text"
             placeholder="First name"
-            class="w-full px-3 py-2 mt-1 text-[#374756] bg-transparent border border-[#A4ADB5] rounded focus:outline-none"
+            class="w-full px-3 py-2 mt-1 text-[#374756] bg-transparent border border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px] "
           />
           <p v-if="errors.firstName" class="text-sm text-red-500">
             {{ errors.firstName }}
@@ -98,7 +98,7 @@
             v-model="form.lastName"
             type="text"
             placeholder="Last name"
-            class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-[#A4ADB5] rounded focus:outline-none"
+            class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
           />
           <p v-if="errors.lastName" class="text-sm text-red-500">
             {{ errors.lastName }}
@@ -112,7 +112,7 @@
           v-model="form.email"
           type="email"
           placeholder="name@gmail.com"
-          class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-[#A4ADB5] rounded focus:outline-none"
+          class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
         />
         <p v-if="errors.email" class="text-sm text-red-500">
           {{ errors.email }}
@@ -120,10 +120,24 @@
       </div>
 
       <div class="mb-4">
-        <PasswordInput/>
+        <PasswordInput
+          label="Password"
+          placeholder="Enter password"
+          v-model="form.password"
+          :error="errors.password"
+        />
+
+        <PasswordInput
+          label="Confirm Password"
+          placeholder="Re-enter password"
+          v-model="form.confirmPassword"
+          :error="errors.confirmPassword"
+        />
       </div>
 
-      <Captcha :errors="errors" @update:modelValue="updateCaptchaVerified" />
+      <div class="mb-4">
+        <Captcha v-model="form.captchaVerified" :errors="errors" />
+      </div>
 
       <button
         @click="handleSignup"
@@ -132,7 +146,7 @@
         Register
       </button>
       <p
-        class="pt-3 text-left text-gray-400 text-[11px] leading-loose font-Eucld"
+        class="pt-3 text-left text-[#7F8B96] text-[11px] leading-loose font-Eucld"
       >
         *By selecting "Sign up", you agree to our
         <a href="#" class="underline">Terms of use</a> (including the mandatory
@@ -174,23 +188,13 @@ onMounted(() => {
   roleStore.fetchRoles();
 });
 
-const updateCaptchaVerified = (value) => {
-  captchaVerified.value = value;
-};
-
 const { form, errors, validateSignupForm, showPassword, togglePassword } =
   useSignupValidation();
 const { handleSignup: signupApi } = useSignupAuth();
 const { showToast } = useToast();
 const router = useRouter();
-const captchaVerified = ref(false);
+
 const handleSignup = async () => {
-  if (!captchaVerified.value) {
-    errors.captchaVerified = 'Please verify that you are human';
-  } else {
-    errors.captchaVerified = '';
-    console.log('Form submitted');
-  }
   const isValid = validateSignupForm();
 
   if (!isValid) return;

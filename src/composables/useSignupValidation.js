@@ -7,7 +7,7 @@ export function useSignupValidation() {
     email: '',
     password: '',
     confirmPassword: '',
-    role: { id: '' }, // Initialize role as an object
+    role: { id: '' },
     captchaVerified: false
   });
 
@@ -30,7 +30,7 @@ export function useSignupValidation() {
   const formatLabel = (key) => {
     return key
       .replace(/([A-Z])/g, ' $1')
-      .replace(/^./, str => str.toUpperCase());
+      .replace(/^./, (str) => str.toUpperCase());
   };
 
   const validateEmail = (email) => {
@@ -51,9 +51,11 @@ export function useSignupValidation() {
       errors.password = 'Password is required';
       return false;
     }
-    const strongPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+    const strongPassword =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
     if (!strongPassword.test(password)) {
-      errors.password = 'Password must be at least 8 characters and include uppercase, lowercase, number, and special character';
+      errors.password =
+        'Password must be at least 8 characters and include uppercase, lowercase, number, and special character';
       return false;
     }
     errors.password = '';
@@ -76,8 +78,7 @@ export function useSignupValidation() {
   const validateSignupForm = () => {
     let isValid = true;
 
-    // Reset all error messages
-    Object.keys(errors).forEach(key => errors[key] = '');
+    Object.keys(errors).forEach((key) => (errors[key] = ''));
 
     if (!form.role || !form.role.id) {
       errors.role = 'Role is required';
@@ -106,44 +107,54 @@ export function useSignupValidation() {
       isValid = false;
     }
 
-    // Check CAPTCHA validation
     if (!form.captchaVerified) {
-      errors.captchaVerified = 'Please verify that you are human';
+      errors.captchaVerified = 'Please verify that you are not a robot.';
       isValid = false;
+    } else {
+      errors.captchaVerified = '';
     }
 
     return isValid;
   };
 
-  // Watch each field in the form
   Object.keys(form).forEach((key) => {
-    watch(() => form[key], (newValue) => {
-      const label = formatLabel(key);
+    watch(
+      () => form[key],
+      (newValue) => {
+        const label = formatLabel(key);
 
-      if (typeof newValue === 'string') {
-        if (!newValue.trim()) {
-          errors[key] = `${label} is required`;
-        } else {
-          errors[key] = '';
+        if (typeof newValue === 'string') {
+          if (!newValue.trim()) {
+            errors[key] = `${label} is required`;
+          } else {
+            errors[key] = '';
 
-          if (key === 'email') validateEmail(newValue);
-          if (key === 'password') validatePassword(newValue);
-          if (key === 'confirmPassword' && newValue !== form.password) {
-            errors.confirmPassword = 'Passwords do not match';
+            if (key === 'email') validateEmail(newValue);
+            if (key === 'password') validatePassword(newValue);
+            if (key === 'confirmPassword' && newValue !== form.password) {
+              errors.confirmPassword = 'Passwords do not match';
+            }
           }
         }
+
+        if (key === 'captchaVerified') {
+          errors.captchaVerified = newValue
+            ? ''
+            : 'Please verify that you are human';
+        }
       }
-
-      // if (typeof newValue === 'boolean' && key === 'captchaVerified') {
-      //   if (!newValue) {
-      //     errors.captchaVerified = 'Please verify that you are human';
-      //   } else {
-      //     errors.captchaVerified = '';
-      //   }
-      // }
-    });
+    );
   });
-
+  watch(
+    () => form.role,
+    (newValue) => {
+      if (!newValue || !newValue.id) {
+        errors.role = 'Role is required';
+      } else {
+        errors.role = '';
+      }
+    }
+  );
   return {
     form,
     errors,
