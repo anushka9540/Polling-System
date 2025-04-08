@@ -12,10 +12,10 @@ const routes = [
     component: () => import('../views/SignupPage.vue')
   },
   {
-    path: '/polls',
+    path: '/poll-list',
     name: 'PollList',
     component: () => import('../views/PollListPage.vue') 
-  }
+  },
 ];
 
 const router = createRouter({

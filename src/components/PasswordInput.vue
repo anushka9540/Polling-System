@@ -5,7 +5,7 @@
       :type="showPassword ? 'text' : 'password'"
       v-model="password"
       :placeholder="placeholder"
-      class="w-full px-3 py-2 mt-1 bg-transparent border border-[#A4ADB5] rounded text-[#374756] focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
+      class="w-full px-3 py-3 mt-1 bg-[#f8f9fa] border border-[#A4ADB5] rounded text-[#374756] focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
     />
     <span
       @click="togglePassword"

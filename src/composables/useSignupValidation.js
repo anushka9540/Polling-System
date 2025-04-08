@@ -1,4 +1,4 @@
-import { reactive, watch, ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 export function useSignupValidation() {
   const form = reactive({
@@ -7,159 +7,66 @@ export function useSignupValidation() {
     email: '',
     password: '',
     confirmPassword: '',
-    role: { id: '' },
+    role: null,
     captchaVerified: false
   });
 
-  const errors = reactive({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    role: '',
-    captchaVerified: ''
-  });
-
-  const showPassword = ref(false);
-
-  const togglePassword = () => {
-    showPassword.value = !showPassword.value;
-  };
-
-  const formatLabel = (key) => {
-    return key
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/^./, (str) => str.toUpperCase());
-  };
-
-  const validateEmail = (email) => {
-    if (!email.trim()) {
-      errors.email = 'Email is required';
-      return false;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = 'Enter a valid email';
-      return false;
-    }
-    errors.email = '';
-    return true;
-  };
-
-  const validatePassword = (password) => {
-    if (!password) {
-      errors.password = 'Password is required';
-      return false;
-    }
-    const strongPassword =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
-    if (!strongPassword.test(password)) {
-      errors.password =
-        'Password must be at least 8 characters and include uppercase, lowercase, number, and special character';
-      return false;
-    }
-    errors.password = '';
-    return true;
-  };
-
-  const validateConfirmPassword = (confirmPassword) => {
-    if (!confirmPassword) {
-      errors.confirmPassword = 'Confirm Password is required';
-      return false;
-    }
-    if (confirmPassword !== form.password) {
-      errors.confirmPassword = 'Passwords do not match';
-      return false;
-    }
-    errors.confirmPassword = '';
-    return true;
-  };
-
+  const errors = reactive({});
+  const submitted = ref(false);
   const validateSignupForm = () => {
-    let isValid = true;
-
-    Object.keys(errors).forEach((key) => (errors[key] = ''));
-
-    if (!form.role || !form.role.id) {
-      errors.role = 'Role is required';
-      isValid = false;
-    }
-
-    if (!form.firstName.trim()) {
-      errors.firstName = 'First name is required';
-      isValid = false;
-    }
-
-    if (!form.lastName.trim()) {
-      errors.lastName = 'Last name is required';
-      isValid = false;
-    }
-
-    if (!validateEmail(form.email)) {
-      isValid = false;
-    }
-
-    if (!validatePassword(form.password)) {
-      isValid = false;
-    }
-
-    if (!validateConfirmPassword(form.confirmPassword)) {
-      isValid = false;
-    }
-
-    if (!form.captchaVerified) {
-      errors.captchaVerified = 'Please verify that you are not a robot.';
-      isValid = false;
-    } else {
-      errors.captchaVerified = '';
-    }
-
-    return isValid;
+    submitted.value = true;
+  
+    errors.firstName = !form.firstName
+      ? 'First name is required'
+      : form.firstName.length < 4
+      ? 'First name must be at least 4 characters'
+      : '';
+  
+    errors.lastName = !form.lastName
+      ? 'Last name is required'
+      : form.lastName.length < 4
+      ? 'Last name must be at least 4 characters'
+      : '';
+  
+    errors.email = !form.email
+      ? 'Email is required'
+      : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)
+      ? 'Please enter a valid email address'
+      : '';
+  
+    errors.password = !form.password
+      ? 'Password is required'
+      : !/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,}$/.test(form.password)
+      ? 'Password must be at least 8 characters, include an uppercase letter, number, and symbol'
+      : '';
+  
+    errors.confirmPassword =
+      form.confirmPassword !== form.password ? 'Passwords do not match' : '';
+  
+    errors.role = !form.role ? 'Role is required' : '';
+  
+    errors.captchaVerified = !form.captchaVerified
+      ? 'Please verify the captcha'
+      : '';
+  
+    return Object.values(errors).every((e) => !e);
   };
-
-  Object.keys(form).forEach((key) => {
-    watch(
-      () => form[key],
-      (newValue) => {
-        const label = formatLabel(key);
-
-        if (typeof newValue === 'string') {
-          if (!newValue.trim()) {
-            errors[key] = `${label} is required`;
-          } else {
-            errors[key] = '';
-
-            if (key === 'email') validateEmail(newValue);
-            if (key === 'password') validatePassword(newValue);
-            if (key === 'confirmPassword' && newValue !== form.password) {
-              errors.confirmPassword = 'Passwords do not match';
-            }
-          }
-        }
-
-        if (key === 'captchaVerified') {
-          errors.captchaVerified = newValue
-            ? ''
-            : 'Please verify that you are human';
-        }
-      }
-    );
-  });
-  watch(
-    () => form.role,
-    (newValue) => {
-      if (!newValue || !newValue.id) {
-        errors.role = 'Role is required';
-      } else {
-        errors.role = '';
+  
+  const setFieldErrors = (fieldErrors) => {
+    submitted.value = true; // ensure errors are shown
+    for (const key in fieldErrors) {
+      if (Object.prototype.hasOwnProperty.call(errors, key)) {
+        errors[key] = fieldErrors[key];
       }
     }
-  );
+  };
+  
+
   return {
     form,
     errors,
+    submitted,
     validateSignupForm,
-    showPassword,
-    togglePassword
+    setFieldErrors
   };
 }

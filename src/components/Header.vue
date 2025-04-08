@@ -3,20 +3,20 @@
     class="flex items-center justify-between px-6 text-white py-7 sm:px-12 lg:px-20"
   >
     <div class="flex items-center text-2xl font-semibold">
-      <img :src="zoosklogo" alt="" class="h-8 mr-2" />
+      <img :src="zoosklogo" alt="" class="mr-2 h-9" />
     </div>
     <div class="flex items-center space-x-6 md:space-x-16">
       <router-link
         v-if="isSignupPage"
         to="/"
-        class="text-base sm:text-lg lg:text-xl text-[#374756] no-underline hover:text-gray-400  "
+        class="text-base sm:text-lg lg:text-xl text-[#374756] no-underline hover:text-gray-400  font-Eucld"
       >
         Log in
       </router-link>
       <router-link
         v-else
         to="/signup"
-        class="text-[#374756] no-underline md:text-[20px] hover:text-gray-400 font-hel font-normal font-Euclid"
+        class="text-[#374756] no-underline md:text-[20px] hover:text-gray-400 font-normal font-Euclid"
       >
         Sign Up
       </router-link>
@@ -57,3 +57,13 @@ const toggleSidebar = () => {
   }
 };
 </script>
+
+<style scoped>
+@media (max-width: 1024px) {
+  img{
+    margin-left: -24px;
+  }
+ 
+}
+</style>
+

@@ -25,7 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('user', JSON.stringify(response.data.user));
       // localStorage.setItem('usertoken',JSON.stringify(response.data.usertoken));
       localStorage.setItem('usertoken',(response.data.usertoken));
-      router.push('/polls');
+      router.push('/poll-list');
 
       return successResponse;
     } catch (error) {

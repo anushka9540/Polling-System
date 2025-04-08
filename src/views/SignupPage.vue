@@ -86,11 +86,11 @@
             v-model="form.firstName"
             type="text"
             placeholder="First name"
-            class="w-full px-3 py-2 mt-1 text-[#374756] bg-transparent border border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px] "
+            class="w-full px-3 py-3 mt-1 text-[#374756] bg-[#f8f9fa] border border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px] "
           />
-          <p v-if="errors.firstName" class="text-sm text-red-500">
-            {{ errors.firstName }}
-          </p>
+          <p v-if="submitted && errors.firstName" class="text-sm text-red-500">
+  {{ errors.firstName }}
+</p>
         </div>
         <div>
           <label class="block text-[#374756] font-euclid">Last Name</label>
@@ -98,11 +98,11 @@
             v-model="form.lastName"
             type="text"
             placeholder="Last name"
-            class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
+            class="w-full px-3 py-3 mt-1 bg-[#f8f9fa] border text-[#374756] border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px]"
           />
-          <p v-if="errors.lastName" class="text-sm text-red-500">
-            {{ errors.lastName }}
-          </p>
+          <p v-if="submitted && errors.lastName" class="text-sm text-red-500">
+  {{ errors.lastName }}
+</p>
         </div>
       </div>
 
@@ -112,9 +112,9 @@
           v-model="form.email"
           type="email"
           placeholder="name@gmail.com"
-          class="w-full px-3 py-2 mt-1 bg-transparent border text-[#374756] border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
+          class="w-full px-3 py-3 mt-1 bg-[#f8f9fa] border text-[#374756] border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
         />
-        <p v-if="errors.email" class="text-sm text-red-500">
+        <p v-if="submitted && errors.email" class="text-sm text-red-500">
           {{ errors.email }}
         </p>
       </div>
@@ -129,7 +129,7 @@
 
         <PasswordInput
           label="Confirm Password"
-          placeholder="Re-enter password"
+          placeholder="Confirm password"
           v-model="form.confirmPassword"
           :error="errors.confirmPassword"
         />
@@ -188,15 +188,22 @@ onMounted(() => {
   roleStore.fetchRoles();
 });
 
-const { form, errors, validateSignupForm, showPassword, togglePassword } =
-  useSignupValidation();
+const {
+  form,
+  errors,
+  submitted,
+  validateSignupForm,
+  setFieldErrors
+} = useSignupValidation();
+
+// Signup API handler and toast
 const { handleSignup: signupApi } = useSignupAuth();
 const { showToast } = useToast();
 const router = useRouter();
 
+// Main signup handler
 const handleSignup = async () => {
   const isValid = validateSignupForm();
-
   if (!isValid) return;
 
   const payload = {
@@ -207,12 +214,16 @@ const handleSignup = async () => {
     roleId: form.role.id
   };
 
-  const { success, message } = await signupApi(payload);
+  const { success, message, fieldErrors } = await signupApi(payload);
+
+  if (fieldErrors) {
+    setFieldErrors(fieldErrors); // Set backend validation errors in UI
+  }
 
   showToast(message, success ? 'success' : 'error');
 
   if (success) {
-    router.push('/');
+    router.push('/'); // Redirect to login on success
   }
 };
 </script>
@@ -231,6 +242,12 @@ const handleSignup = async () => {
     font-size: 44px;
     max-width: 430px;
     line-height: 1.2;
+    
   }
+
+  .hide-on-768-and-below{
+    margin-left: -30px;
+  }
+ 
 }
 </style>
