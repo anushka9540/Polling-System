@@ -1,15 +1,15 @@
 <template>
   <div class="relative mb-4">
-    <label class="block text-[#374756] font-euclid">{{ label }}</label>
+    <label class="block text-[#374756] font-euclid mb-1">{{ label }}</label>
     <input
       :type="showPassword ? 'text' : 'password'"
       v-model="password"
       :placeholder="placeholder"
-      class="w-full px-3 py-3 mt-1 bg-[#f8f9fa] border border-[#A4ADB5] rounded text-[#374756] focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
+      class="w-full px-5 py-3 mt-1 bg-[#f8f9fa] border border-[#A4ADB5] rounded text-[#374756] focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
     />
     <span
       @click="togglePassword"
-      class="absolute transform -translate-y-1/2 cursor-pointer right-3 top-[52px]"
+      class="absolute transform -translate-y-1/2 cursor-pointer right-3 top-[56px]"
     >
       <i
         class="fa-solid fa-eye"

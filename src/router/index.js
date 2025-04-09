@@ -14,13 +14,17 @@ const routes = [
   {
     path: '/poll-list',
     name: 'PollList',
-    component: () => import('../views/PollListPage.vue') 
+    component: () => import('../views/PollListPage.vue'),
   },
+
 ];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    return { top: 0 }
+  }
 });
 
 export default router;

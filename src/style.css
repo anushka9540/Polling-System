@@ -20,6 +20,11 @@
   src: url("/fonts/Euclid\ Circular\ A\ Light.ttf");
 }
 
+@font-face {
+  font-family: 'EuclidRegular';
+  src: url("/fonts/Euclid\ Circular\ A\ Regular.ttf");
+}
+
 :root {
   line-height: 1.5;
   font-weight: 400;

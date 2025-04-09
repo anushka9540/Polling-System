@@ -7,7 +7,8 @@ export default {
         hel: ['Helvetica Neue', ''],
         eup: ['Euphoria Script', 'cursive'],
         euclid:['EuclidBold','Helvetica Neue','Helvetica', 'Arial', 'sans-serif'],
-        Eucld:['EuclidLight','Helvetica Neue','Helvetica', 'Arial', 'sans-serif']
+        Eucld:['EuclidLight','Helvetica Neue','Helvetica', 'Arial', 'sans-serif'],
+        Eucliid:['EuclidRegular','Helvetica Neue','Helvetica', 'Arial', 'sans-serif'], 
       }
     }
   },

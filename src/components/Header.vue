@@ -9,14 +9,14 @@
       <router-link
         v-if="isSignupPage"
         to="/"
-        class="text-base sm:text-lg lg:text-xl text-[#374756] no-underline hover:text-gray-400  font-Eucld"
+        class="text-base sm:text-lg lg:text-xl text-[#374756] no-underline hover:text-gray-400  font-Eucliid"
       >
         Log in
       </router-link>
       <router-link
         v-else
         to="/signup"
-        class="text-[#374756] no-underline md:text-[20px] hover:text-gray-400 font-normal font-Euclid"
+        class="text-[#374756] no-underline md:text-[20px] hover:text-gray-400 font-normal font-Eucliid"
       >
         Sign Up
       </router-link>

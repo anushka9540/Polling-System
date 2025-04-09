@@ -4,7 +4,7 @@
     class="relative flex justify-center px-4 py-10 bg-gray-100 md:justify-end sm:px-0"
     :style="{
       backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: '105%',
+      backgroundSize: '125%',
       backgroundPosition: 'center bottom',
       backgroundRepeat: 'no-repeat'
     }"
@@ -33,7 +33,7 @@
         />
       </div>
 
-      <div class="flex mb-4 space-x-2">
+      <div class="flex mb-6 space-x-2">
         <button
           class="flex items-center justify-center w-full py-3 font-euclid text-[#374756] border border-[#374756] rounded-md hover:bg-gray-100"
         >
@@ -47,7 +47,7 @@
         </button>
       </div>
 
-      <div class="mb-4">
+      <div class="mb-6">
         <label class="block text-[#374756] font-euclid mb-2"
           >Select a Role:</label
         >
@@ -58,7 +58,7 @@
             @click="form.role = role"
             type="button"
             :class="[
-              'w-full py-3 rounded-full font-medium border-2 text-center transition-all duration-200',
+              'w-full py-3 rounded-full border-2 text-center transition-all duration-200 font-Eucliid',
               form.role?.id === role.id
                 ? 'bg-[#E6F8FF] text-[#374756] border-[#19B7EA]'
                 : 'bg-[#F8F9FA] text-[#374756] border-[#A4ADB5] hover:bg-[#E6F8FF] hover:border-[#19B7EA]'
@@ -79,26 +79,26 @@
         </p>
       </div>
 
-      <div class="flex gap-2 mb-4 juistify-between">
+      <div class="flex gap-2 mb-6 juistify-between">
         <div>
-          <label class="block text-[#374756] font-euclid">First Name</label>
+          <label class="block text-[#374756] font-euclid mb-1">First Name</label>
           <input
             v-model="form.firstName"
             type="text"
             placeholder="First name"
-            class="w-full px-3 py-3 mt-1 text-[#374756] bg-[#f8f9fa] border border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px] placeholder:text-[#374756]"
+            class="w-full px-5 py-3 mt-1 text-[#374756] bg-[#f8f9fa] border border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px] placeholder:text-[#374756]"
           />
           <p v-if="submitted && errors.firstName" class="text-sm text-red-500">
             {{ errors.firstName }}
           </p>
         </div>
         <div>
-          <label class="block text-[#374756] font-euclid">Last Name</label>
+          <label class="block text-[#374756] font-euclid mb-1">Last Name</label>
           <input
             v-model="form.lastName"
             type="text"
             placeholder="Last name"
-            class="w-full px-3 py-3 mt-1 bg-[#f8f9fa] border text-[#374756] border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px] placeholder:text-[#374756]"
+            class="w-full px-5 py-3 mt-1 bg-[#f8f9fa] border text-[#374756] border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px] placeholder:text-[#374756]"
           />
           <p v-if="submitted && errors.lastName" class="text-sm text-red-500">
             {{ errors.lastName }}
@@ -106,20 +106,20 @@
         </div>
       </div>
 
-      <div class="mb-4">
-        <label class="block text-[#374756] font-euclid">Email</label>
+      <div class="mb-6">
+        <label class="block text-[#374756] font-euclid mb-1">Email Address</label>
         <input
           v-model="form.email"
           type="email"
           placeholder="name@gmail.com"
-          class="w-full px-3 py-3 mt-1 bg-[#f8f9fa] border text-[#374756] border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
+          class="w-full px-5 py-3 mt-1 bg-[#f8f9fa] border text-[#374756] border-[#A4ADB5] rounded focus:outline-none placeholder:text-[#374756] font-Euclid text-[15px]"
         />
-        <p v-if="submitted && errors.email" class="text-sm text-red-500">
+        <p v-if="errors.email" class="text-sm text-red-500">
           {{ errors.email }}
         </p>
       </div>
 
-      <div class="mb-4">
+      <div class="mb-6">
         <PasswordInput
           label="Password"
           placeholder="Enter password"
@@ -127,6 +127,9 @@
           :error="errors.password"
         />
 
+      </div>
+
+      <div class="mb-6">
         <PasswordInput
           label="Confirm Password"
           placeholder="Confirm password"
@@ -135,15 +138,20 @@
         />
       </div>
 
-      <div class="mb-4">
+      <div class="mb-6">
         <Captcha v-model="form.captchaVerified" :errors="errors" />
       </div>
 
       <button
         @click="handleSignup"
-        class="w-full py-3 text-white rounded-[40px] bg-[#19b7ea] hover:bg-cyan-400 text-[20px] font-Euclid"
+        :disabled="loading"
+        class="w-full py-3 text-white rounded-[40px] bg-[#19b7ea] hover:bg-cyan-400 text-[20px] font-Euclid flex items-center justify-center gap-2"
       >
-        Register
+        <span v-if="!loading">Register</span>
+        <span
+          v-else
+          class="w-4 h-4 border-2 border-white rounded-full border-t-transparent animate-spin"
+        ></span>
       </button>
       <p
         class="pt-3 text-left text-[#7F8B96] text-[11px] leading-loose font-Eucld"
@@ -191,34 +199,41 @@ onMounted(() => {
 const { form, errors, submitted, validateSignupForm, setFieldErrors } =
   useSignupValidation();
 
-// Signup API handler and toast
 const { handleSignup: signupApi } = useSignupAuth();
 const { showToast } = useToast();
 const router = useRouter();
+const loading = ref(false);
 
-// Main signup handler
 const handleSignup = async () => {
+  submitted.value = true;
   const isValid = validateSignupForm();
   if (!isValid) return;
 
+  loading.value = true;
+
   const payload = {
-    firstName: form.firstName,
-    lastName: form.lastName,
-    email: form.email,
+    firstName: form.firstName.trim(),
+    lastName: form.lastName.trim(),
+    email: form.email.trim(),
     password: form.password,
     roleId: form.role.id
   };
 
   const { success, message, fieldErrors } = await signupApi(payload);
 
+  loading.value = false;
+
   if (fieldErrors) {
-    setFieldErrors(fieldErrors); // Set backend validation errors in UI
+    setFieldErrors(fieldErrors);
   }
 
-  showToast(message, success ? 'success' : 'error');
+  if (message?.toLowerCase().includes('email is already in use')) {
+    errors.email = 'Email is already in use. Please try another.';
+  }
 
   if (success) {
-    router.push('/'); // Redirect to login on success
+    showToast(message, 'success');
+    router.push('/');
   }
 };
 </script>
