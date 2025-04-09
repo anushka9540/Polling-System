@@ -81,7 +81,9 @@
 
       <div class="flex gap-2 mb-6 juistify-between">
         <div>
-          <label class="block text-[#374756] font-euclid mb-1">First Name</label>
+          <label class="block text-[#374756] font-euclid mb-1"
+            >First Name</label
+          >
           <input
             v-model="form.firstName"
             type="text"
@@ -107,7 +109,9 @@
       </div>
 
       <div class="mb-6">
-        <label class="block text-[#374756] font-euclid mb-1">Email Address</label>
+        <label class="block text-[#374756] font-euclid mb-1"
+          >Email Address</label
+        >
         <input
           v-model="form.email"
           type="email"
@@ -126,7 +130,6 @@
           v-model="form.password"
           :error="errors.password"
         />
-
       </div>
 
       <div class="mb-6">

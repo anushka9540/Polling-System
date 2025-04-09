@@ -1,4 +1,3 @@
-// stores/useSignupAuthStore.js
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
@@ -35,7 +34,8 @@ export const useSignupAuth = defineStore('signupAuth', () => {
       return {
         success: false,
         message:
-          error?.response?.data?.message || 'Something went wrong. Sign up failed!'
+          error?.response?.data?.message ||
+          'Something went wrong. Sign up failed!'
       };
     }
   };

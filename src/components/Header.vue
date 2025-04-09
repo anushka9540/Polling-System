@@ -9,7 +9,7 @@
       <router-link
         v-if="isSignupPage"
         to="/"
-        class="text-base sm:text-lg lg:text-xl text-[#374756] no-underline hover:text-gray-400  font-Eucliid"
+        class="text-base sm:text-lg lg:text-xl text-[#374756] no-underline hover:text-gray-400 font-Eucliid"
       >
         Log in
       </router-link>
@@ -60,10 +60,8 @@ const toggleSidebar = () => {
 
 <style scoped>
 @media (max-width: 1024px) {
-  img{
+  img {
     margin-left: -24px;
   }
- 
 }
 </style>
-

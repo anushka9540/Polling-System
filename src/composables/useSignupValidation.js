@@ -17,7 +17,6 @@ export function useSignupValidation() {
   const validateSignupForm = () => {
     submitted.value = true;
 
-    // Trim input values to remove extra spaces
     const trimmedFirstName = form.firstName.trim();
     const trimmedLastName = form.lastName.trim();
     const trimmedEmail = form.email.trim();
@@ -71,6 +70,6 @@ export function useSignupValidation() {
     errors,
     submitted,
     validateSignupForm,
-    setFieldErrors // ✅ This is important — keep it!
+    setFieldErrors 
   };
 }
