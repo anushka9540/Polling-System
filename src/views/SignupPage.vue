@@ -69,7 +69,7 @@
         </div>
         <div v-else class="text-[#374756]">
           <button
-            class="w-full py-3 font-medium text-center transition-all duration-200 border border-[#A4ADB5] rounded-full"
+            class="w-full py-3 font-medium text-center transition-all duration-200 border border-[#A4ADB5] rounded-full text-[#19b7ea]"
           >
             Role Loading...
           </button>
@@ -86,11 +86,11 @@
             v-model="form.firstName"
             type="text"
             placeholder="First name"
-            class="w-full px-3 py-3 mt-1 text-[#374756] bg-[#f8f9fa] border border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px] "
+            class="w-full px-3 py-3 mt-1 text-[#374756] bg-[#f8f9fa] border border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px] placeholder:text-[#374756]"
           />
           <p v-if="submitted && errors.firstName" class="text-sm text-red-500">
-  {{ errors.firstName }}
-</p>
+            {{ errors.firstName }}
+          </p>
         </div>
         <div>
           <label class="block text-[#374756] font-euclid">Last Name</label>
@@ -98,11 +98,11 @@
             v-model="form.lastName"
             type="text"
             placeholder="Last name"
-            class="w-full px-3 py-3 mt-1 bg-[#f8f9fa] border text-[#374756] border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px]"
+            class="w-full px-3 py-3 mt-1 bg-[#f8f9fa] border text-[#374756] border-[#A4ADB5] rounded focus:outline-none font-Euclid text-[15px] placeholder:text-[#374756]"
           />
           <p v-if="submitted && errors.lastName" class="text-sm text-red-500">
-  {{ errors.lastName }}
-</p>
+            {{ errors.lastName }}
+          </p>
         </div>
       </div>
 
@@ -188,13 +188,8 @@ onMounted(() => {
   roleStore.fetchRoles();
 });
 
-const {
-  form,
-  errors,
-  submitted,
-  validateSignupForm,
-  setFieldErrors
-} = useSignupValidation();
+const { form, errors, submitted, validateSignupForm, setFieldErrors } =
+  useSignupValidation();
 
 // Signup API handler and toast
 const { handleSignup: signupApi } = useSignupAuth();
@@ -242,12 +237,10 @@ const handleSignup = async () => {
     font-size: 44px;
     max-width: 430px;
     line-height: 1.2;
-    
   }
 
-  .hide-on-768-and-below{
+  .hide-on-768-and-below {
     margin-left: -30px;
   }
- 
 }
 </style>

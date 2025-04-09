@@ -9,7 +9,7 @@
     />
     <span
       @click="togglePassword"
-      class="absolute transform -translate-y-1/2 cursor-pointer right-3 top-[49px]"
+      class="absolute transform -translate-y-1/2 cursor-pointer right-3 top-[52px]"
     >
       <i
         class="fa-solid fa-eye"

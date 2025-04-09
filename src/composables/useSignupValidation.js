@@ -40,8 +40,11 @@ export function useSignupValidation() {
       ? 'Password must be at least 8 characters, include an uppercase letter, number, and symbol'
       : '';
   
-    errors.confirmPassword =
-      form.confirmPassword !== form.password ? 'Passwords do not match' : '';
+      errors.confirmPassword = !form.confirmPassword
+      ? 'Confirm password is required'
+      : form.confirmPassword !== form.password
+      ? 'Passwords do not match'
+      : '';
   
     errors.role = !form.role ? 'Role is required' : '';
   
