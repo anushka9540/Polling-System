@@ -12,8 +12,6 @@ export const useSignupAuth = defineStore('signupAuth', () => {
     try {
       const response = await axios.post(`${BASE_URL}/user/register`, payload);
 
-      localStorage.setItem('user', JSON.stringify(response.data?.user || {}));
-
       return {
         success: true,
         message: response?.data?.message || 'Registration successful!'

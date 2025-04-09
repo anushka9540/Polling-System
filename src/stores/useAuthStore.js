@@ -7,8 +7,8 @@ import { BASE_URL } from '../constants/constant.js';
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter();
   const user = ref(JSON.parse(localStorage.getItem('user')) || null);
-  // const usertoken = ref(JSON.parse(localStorage.getItem('usertoken')) || null);
-  const usertoken = ref((localStorage.getItem('usertoken')) || null);
+  const usertoken = ref(JSON.parse(localStorage.getItem('usertoken')) || null);
+  // const usertoken = ref((localStorage.getItem('usertoken')) || null);
 
   const handleLogin = async (payload) => {
     try {
@@ -23,8 +23,8 @@ export const useAuthStore = defineStore('auth', () => {
       usertoken.value = response.data.usertoken;
 
       localStorage.setItem('user', JSON.stringify(response.data.user));
-      // localStorage.setItem('usertoken',JSON.stringify(response.data.usertoken));
-      localStorage.setItem('usertoken',(response.data.usertoken));
+      localStorage.setItem('usertoken',JSON.stringify(response.data.usertoken));
+      // localStorage.setItem('usertoken',(response.data.usertoken));
       router.push('/poll-list');
 
       return successResponse;
